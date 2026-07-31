@@ -222,7 +222,9 @@ class RandomFeaturesEwaldsTrainer(RandomFeaturesTrainer):
             except StopIteration:
                 inner_data = iter(self.train_dataloader)
                 data, targets = next(inner_data)
-
+            data = data.to(device=self.device)
+            targets = targets.to(device=self.device)
+            
             # 1. compute predictions of the joint model
             preds = model.predict(
                 targets=self.training_targets,  # type: ignore
