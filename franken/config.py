@@ -248,10 +248,10 @@ class PETBackboneConfig(BackboneConfig):
 # TODO: Document LES/Ewalds parameters and add them here.
 @dataclass
 class LESConfig:
-    n_layers: int = 3
-    hidden_dim: tuple[int, ...] = (32, 16)
-    dl: float = 1.5
-    sigma: float = 1.0
+    n_layers: int = 3  # number total layer (not only hidden layer) for MLIP 
+    hidden_dim: tuple[int, ...] = (32, 16) #  number hidden layer nodes => as in original LES
+    dl: float = 1.5 # grid resolution kc=2*pi/dl=> for dimer test dl=3
+    sigma: float = 1.0 # width of the Gaussian on each atom => same of dimer test
     les_output_scale: float = 0.1
     add_linear_nn: bool = True
 

@@ -82,7 +82,7 @@ class RandomFeaturesEwaldsTrainer(RandomFeaturesTrainer):
         # is the loop which updates the LES model).
         self.num_inner_iterations = 3000
         # num_outer_iterations: number of iterations for the outer loop.
-        self.num_outer_iterations = 10
+        self.num_outer_iterations = 100#10
         # learning rate for the Adam optimizer in the inner loop
         self.les_lr = 1e-4
         # lr will be multiplied by scheduling_gamma every outer iteration
@@ -222,7 +222,9 @@ class RandomFeaturesEwaldsTrainer(RandomFeaturesTrainer):
             except StopIteration:
                 inner_data = iter(self.train_dataloader)
                 data, targets = next(inner_data)
-
+            
+            data = data.to(device=self.device)
+            targets = targets.to(device=self.device)
             # 1. compute predictions of the joint model
             preds = model.predict(
                 targets=self.training_targets,  # type: ignore
@@ -303,6 +305,9 @@ class RandomFeaturesEwaldsTrainer(RandomFeaturesTrainer):
 
         # Logging
         log_collection = LogCollection([self.create_log_entry(rf_hps, model)])
+        
+        #if rf_weights is None:
+        #    return log_collection, None
 
         return log_collection, rf_weights.unsqueeze(0)
 

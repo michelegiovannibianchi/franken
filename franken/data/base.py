@@ -221,7 +221,7 @@ TargetType = Literal["energy", "forces", "stress"]
 ENERGY_TARGET_KEY: TargetType = "energy"
 FORCES_TARGET_KEY: TargetType = "forces"
 STRESS_TARGET_KEY: TargetType = "stress"
-
+LES_CHARGE_TARGET_KEY: TargetType = "LES_charges"
 
 def is_target_key(s: str):
     return s in get_args(TargetType)

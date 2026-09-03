@@ -169,6 +169,7 @@ def atom_numbers_to_node_attrs(
     Raises:
         ValueError: If any value in `frame_nums` is not present in `all_nums`.
     """
+    
     matches = frame_nums.unsqueeze(1) == all_nums.unsqueeze(0)  # (N, M)
 
     # Check that every frame_num appears at least once in all_nums
@@ -209,6 +210,7 @@ class FrankenMACE(torch.nn.Module):
         self.r_max: torch.Tensor = (
             base_model.r_max
         )  # pyright: ignore[reportAttributeAccessIssue]
+        
         self.register_buffer(
             "num_interactions", torch.tensor(interaction_block, dtype=torch.int64)
         )
@@ -219,6 +221,7 @@ class FrankenMACE(torch.nn.Module):
         self.products = base_model.products[: self.interaction_block]
         self.is_mace_v3_14 = Version(mace.__version__) >= Version("0.3.14")  # type: ignore
         self.is_mace_v3_13 = Version(mace.__version__) >= Version("0.3.13")  # type: ignore
+        
 
     def init_args(self):
         return {
@@ -227,6 +230,7 @@ class FrankenMACE(torch.nn.Module):
         }
 
     def descriptors(self, data: Configuration) -> torch.Tensor:
+        
         # Process inputs
         edge_index = data.edge_index
         assert edge_index is not None
@@ -398,6 +402,7 @@ class FrankenMACE(torch.nn.Module):
         # 3. Convert neighbors to configuration
         dtype = partial_config.atom_pos.dtype
         device = partial_config.atom_pos.device
+        
         return Configuration(
             atom_pos=partial_config.atom_pos,
             cell=torch.from_numpy(cell).to(dtype=dtype, device=device),
