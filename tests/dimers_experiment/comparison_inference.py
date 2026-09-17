@@ -84,7 +84,7 @@ for snap in dataset:
         snap,
         properties=["energy", "forces", "LES_charges"]
     )
-    print(snap.calc.results.keys())
+    #print(snap.calc.results.keys())
     
     #snap.set_calculator(calc)
     snap.info["LR_energy"]=snap.get_potential_energy()   
@@ -98,7 +98,7 @@ for snap in dataset:
         snap,
         properties=["energy", "forces"]
     )
-    print(snap.calc.results.keys())
+    #print(snap.calc.results.keys())
     
     #snap.set_calculator(calc)
     snap.info["SR_energy"]=snap.get_potential_energy()   

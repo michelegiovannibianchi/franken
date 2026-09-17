@@ -229,8 +229,11 @@ class LESFrankenPotential(FrankenPotential):
                 data,
                 )
             )
-            # TODO normalisation factor 1/9.48933 ???
-            computed[franken.data.base.LES_CHARGES_TARGET_KEY] = computed[franken.data.base.LES_CHARGES_TARGET_KEY]*9.48933
+            # Normalisation of the charge. Set 1/2*epsilon_0=1 in the Ewald formulas
+            # q_phy  = q_raw*sqrt(2*epsilon_0)
+            epsilon_0 = 0.00552635  # e^2 eV^{-1} A^{-1}
+            q_normalisation_factor=(2*epsilon_0)**0.5
+            computed[franken.data.base.LES_CHARGES_TARGET_KEY] = computed[franken.data.base.LES_CHARGES_TARGET_KEY]*q_normalisation_factor
 
         return computed
         
