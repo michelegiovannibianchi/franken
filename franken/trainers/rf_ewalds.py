@@ -73,24 +73,24 @@ class RandomFeaturesEwaldsTrainer(RandomFeaturesTrainer):
         # GD steps to update the LES model and steps of the solver to update the RFF (Franken)
         # model. 'joint' updates both models simultaneously with the same GD optimizer.
         self.mode: Literal["alternating", "joint"] = "alternating"
-        # solver: which solver to use for RFF. "direct" is the usual one (solving in closed form)
+        # solver: which solver to use for RFF, not for the LES MLIP. "direct" is the usual one (solving in closed form)
         # 'cg' uses the conjugate gradient algorithm for 'cg_num_iter' iterations.
         self.solver: Literal["cg", "direct"] = "direct"
         # cg_num_iter: number of CG iterations if solver == 'cg'
-        self.cg_num_iter: int = 10
+        self.cg_num_iter: int = 100
         # num_inner_iterations: number of iterations for the inner loop (in alternating mode this
         # is the loop which updates the LES model).
         self.num_inner_iterations = 3000
         # num_outer_iterations: number of iterations for the outer loop.
-        self.num_outer_iterations = 100#10
+        self.num_outer_iterations = 10# number of altarnation of update SR RF followed by GD for LR MLIP
         # learning rate for the Adam optimizer in the inner loop
         self.les_lr = 1e-4
         # lr will be multiplied by scheduling_gamma every outer iteration
-        self.lr_scheduling_gamma = 0.5
+        self.lr_scheduling_gamma = 0.5  # learning rate=initial_learning_rate*0.5^epoch
         # End RFEwaldsTrainer configuration
         self.val_dataloader = None
 
-    def create_log_entry(self, rf_hps, model):
+    def create_log_entry(self, rf_hps, model): # create metadata for the training
         model_hash = hashlib.md5(str(model.hyperparameters).encode())
         model_hash = model_hash.hexdigest()
         solver_hps = rf_hps | {
@@ -114,10 +114,10 @@ class RandomFeaturesEwaldsTrainer(RandomFeaturesTrainer):
         )
         return local_log
 
-    def eval_summary(
+    def eval_summary(# use to print info in the output log file
         self, log: LogEntry, epoch: int, split: DataSplit, title=""
     ) -> str:
-        hp_summary = f"[Epoch {epoch:3}] {title} {split.name}"
+        hp_summary = f"[Epoch {epoch:3}] {title} {split.name}" # produce log with ths format in the log output file
 
         def _get_first_available_metric(
             candidates: list[str],
@@ -148,7 +148,7 @@ class RandomFeaturesEwaldsTrainer(RandomFeaturesTrainer):
             hp_summary += f" ({stress_metric} {stress_error:.2f} meV/Ang^3)"
         return hp_summary
 
-    def _print_eval(self, rf_hps, model, weights, epoch):
+    def _print_eval(self, rf_hps, model, weights, epoch):# print evaluation of model after LES GD on training and validation
         logc = LogCollection([self.create_log_entry(rf_hps, model)])
         if weights is not None:
             weights = weights.unsqueeze(0)
@@ -177,11 +177,11 @@ class RandomFeaturesEwaldsTrainer(RandomFeaturesTrainer):
         )
         print()
 
-    def _fit_rff(self, model, weights, covs, norm_coeffs, rf_hps, epoch):
-        coeffs = self.residual_coeffs(
+    def _fit_rff(self, model, weights, covs, norm_coeffs, rf_hps, epoch):# trainer for the Short range part via RF
+        coeffs = self.residual_coeffs(# projection of (y-y_les) onto random feature
             model, self.train_dataloader, normalization=norm_coeffs
         )
-        rf_weights = self.solve(
+        rf_weights = self.solve( # solve via closed form
             covs=covs,
             coeffs=coeffs,
             x0=weights,
@@ -196,14 +196,14 @@ class RandomFeaturesEwaldsTrainer(RandomFeaturesTrainer):
     def _fit_les(self, model, weights, epoch, rf_hps):
         # Determine and normalize target weights
         target_weights = {}
-        for k, v in rf_hps.items():
+        for k, v in rf_hps.items():# read the weight of the loss e.g. energy_weight=1 force_weight=100
             if k.split("_")[1] == "weight":
                 target_weights[k.split("_")[0]] = v
-        weights_norm_factor = sum(target_weights.values())
+        weights_norm_factor = sum(target_weights.values())# normalize weight 
 
-        cur_lr = self.les_lr * (self.lr_scheduling_gamma**epoch)
+        cur_lr = self.les_lr * (self.lr_scheduling_gamma**epoch)# set learning rate decay
 
-        inner_data = iter(
+        inner_data = iter( #iterator to provide data in subsequent batch to reach max number epoch
             self.train_dataloader
         )  # TODO: Make sure this is randomized, otherwise every epoch may pick the same data. Currently NOT RANDOMIZED.
         # TODO: Fix for multi-process
@@ -211,26 +211,20 @@ class RandomFeaturesEwaldsTrainer(RandomFeaturesTrainer):
         print(f"LES has {sum(p.numel() for p in model.les.parameters())} parameters")
         params = list(model.les.parameters())
         if self.mode == "joint":
-            params += list(model.rf.parameters())
+            params += list(model.rf.parameters())# consider in the GD both the paramter of LES, both the parameter of the SR part
             print(f"RFF has {sum(p.numel() for p in model.rf.parameters())} parameters")
 
         optim = torch.optim.Adam(params, cur_lr, eps=1e-8)
         avg_losses = defaultdict(list)
         for inner_it in (pb := tqdm.tqdm(range(self.num_inner_iterations), desc="LES")):
             try:
-                data, targets = next(inner_data)
+                data, targets = next(inner_data) #load batch
             except StopIteration:
                 inner_data = iter(self.train_dataloader)
                 data, targets = next(inner_data)
-<<<<<<< HEAD
-            
-            data = data.to(device=self.device)
-            targets = targets.to(device=self.device)
-=======
             data = data.to(device=self.device)
             targets = targets.to(device=self.device)
             
->>>>>>> d174f8ecf2e89ffef3427121039b2d266bd9a9c9
             # 1. compute predictions of the joint model
             preds = model.predict(
                 targets=self.training_targets,  # type: ignore
@@ -239,10 +233,10 @@ class RandomFeaturesEwaldsTrainer(RandomFeaturesTrainer):
                 is_training=True,
                 add_energy_shift=False,
             )
-
+            
             # 2. compute LES loss
             losses = {}
-            for tt in self.training_targets:
+            for tt in self.training_targets:# energy, forces, stress
                 try:
                     tgt = targets[tt].to(dtype=self.buffer_dt)
                 except KeyError:
@@ -250,15 +244,15 @@ class RandomFeaturesEwaldsTrainer(RandomFeaturesTrainer):
                 # TODO: This is only correct for batch-size=1
                 normalized_weight = target_weights[tt] / weights_norm_factor
                 losses[tt] = normalized_weight * torch.mean(
-                    torch.square(preds[tt] - tgt)
+                    torch.square(preds[tt] - tgt)# MSE
                 )
                 avg_losses[tt].append(losses[tt].item())
             loss = cast(torch.Tensor, sum(losses.values()))
 
-            # 3. Optimize LES parameters
+            # 3. Optimize LES parameters (back-propagation)
             optim.zero_grad()
-            loss.backward()
-            optim.step()
+            loss.backward() # compute gradient
+            optim.step()# update parameters
 
             # Limited loss reporting
             loss_str = f"[{epoch}/{inner_it}] LES loss " + ", ".join(
@@ -290,7 +284,7 @@ class RandomFeaturesEwaldsTrainer(RandomFeaturesTrainer):
         _, rf_hps = next(params_grid(self.solver_hps))
 
         covs, norm_coeffs = None, None
-        if self.mode != "joint":
+        if self.mode != "joint": # for alternating compute SR using RF not MLIPs.
             # Joint doesn't need covariance!
             t_cov = perf_counter()
             covs, norm_coeffs = self.covariances(model, self.train_dataloader)
@@ -298,11 +292,13 @@ class RandomFeaturesEwaldsTrainer(RandomFeaturesTrainer):
 
         rf_weights = None
 
-        for outer_it in range(self.num_outer_iterations):
+        for outer_it in range(self.num_outer_iterations): #outer loop in alternating
             # Compute LES predictions and update targets
             # recompute coefficients and solve RFF problem
-            self._fit_les(model, rf_weights, outer_it, rf_hps)
-            if self.mode == "alternating":
+            # At the beginninh start with LES + RF with zero paramater (so only MLIP to fit all)
+            self._fit_les(model, rf_weights, outer_it, rf_hps) # LES contribution
+            
+            if self.mode == "alternating":# compute weight SR via solving closed form
                 assert covs is not None
                 assert norm_coeffs is not None
                 rf_weights = self._fit_rff(
@@ -318,7 +314,7 @@ class RandomFeaturesEwaldsTrainer(RandomFeaturesTrainer):
         return log_collection, rf_weights.unsqueeze(0)
 
     @no_jit()
-    def evaluate(
+    def evaluate( # just compute metrics of the model
         self,
         model: FrankenPotential,
         dataloader: torch.utils.data.DataLoader,
@@ -330,9 +326,9 @@ class RandomFeaturesEwaldsTrainer(RandomFeaturesTrainer):
 
         metric_objects: list[BaseMetric] = self.get_metrics()
 
-        split_name = dataloader.dataset.split
+        split_name = dataloader.dataset.split # train, val test
         try:
-            split = DataSplit[split_name.upper()]
+            split = DataSplit[split_name.upper()]  # e.g. DataSplit.TRAIN
         except KeyError:
             logger.warning(f"Unrecognized split '{split_name}' in dataloader")
             split = DataSplit.UNDEFINED
@@ -343,11 +339,11 @@ class RandomFeaturesEwaldsTrainer(RandomFeaturesTrainer):
             total=tot_dset_size,
             device=self.device,
         )
-        model.gnn.franken_val()
-        for i, (data, targets) in enumerate(progress_bar):
+        model.gnn.franken_val() #set evaluation mode
+        for i, (data, targets) in enumerate(progress_bar): # iteration on structures and targets (energy, forces..)
             data = data.to(device=self.device)
             targets = targets.to(device=self.device)
-            if all_weights is None or all_weights.shape[0] <= 100:
+            if all_weights is None or all_weights.shape[0] <= 100: #two way of compute forces
                 forces_mode = "torch.autograd"
             else:
                 forces_mode = "torch.func"  # FIXME: interaction between torch.func and franken_val is unclear!
@@ -356,7 +352,7 @@ class RandomFeaturesEwaldsTrainer(RandomFeaturesTrainer):
                 data=data,
                 weights=all_weights,
                 differential_mode=forces_mode,
-                add_energy_shift=(False if split == DataSplit.TRAIN else True),
+                add_energy_shift=(False if split == DataSplit.TRAIN else True), # Why only on train ?
             )
             for tt, val in predictions.items():
                 if torch.any(torch.isnan(val)):
@@ -366,7 +362,7 @@ class RandomFeaturesEwaldsTrainer(RandomFeaturesTrainer):
             for metric in metric_objects:
                 metric.update(Target.from_types(predictions), targets, data)
 
-        num_models = (
+        num_models = ( # possible to evalete more models togheter
             all_weights.shape[0]
             if all_weights is not None
             else model.rf.weights.shape[0]
@@ -393,14 +389,14 @@ class RandomFeaturesEwaldsTrainer(RandomFeaturesTrainer):
 
     @no_jit()
     @torch.no_grad()
-    def residual_coeffs(
+    def residual_coeffs(# to compute projection of (y-y_les) onto random feature
         self,
         model: LESFrankenPotential,
         dataloader: torch.utils.data.DataLoader,
         normalization: dict[str, Tensor] | None,
     ):
         n_samples = len(dataloader.dataset)  # type: ignore
-        n_rf = model.rf.total_random_features
+        n_rf = model.rf.total_random_features #number of RF
 
         coeffs = {
             t: torch.zeros((n_rf,), device=self.device, dtype=self.buffer_dt)
@@ -409,7 +405,7 @@ class RandomFeaturesEwaldsTrainer(RandomFeaturesTrainer):
         progress_bar = throughput(
             dataloader, "coeffs", total=n_samples, device=self.device
         )
-        for i, (data, targets) in enumerate(progress_bar):
+        for i, (data, targets) in enumerate(progress_bar): #loop over structure and target
             assert isinstance(data, Configuration)
             data = data.to(device=self.device)
             assert data.natoms.numel() == 1, "Batched training is not supported"
@@ -427,12 +423,12 @@ class RandomFeaturesEwaldsTrainer(RandomFeaturesTrainer):
                         f"Target {i} does not contain any values for {tgt_name}."
                     )
                 tgt_per_atom = (tgt / data.natoms).to(dtype=self.buffer_dt)
-                fmap = target_fmaps[tgt_name].to(self.buffer_dt)
+                fmap = target_fmaps[tgt_name].to(self.buffer_dt)# get feature map
                 if is_scalar_target(tgt_name):
                     coeffs[tgt_name].add_(fmap.view(-1), alpha=tgt_per_atom.item())
                 else:
                     coeffs[tgt_name].addmv_(fmap, tgt_per_atom.view(-1))
-        # Sync coefficients
+        # Sync coefficients distribuited synchronization
         for tgt_name in self.training_targets:
             dist_utils.all_sum(coeffs[tgt_name])
         # Normalize using covariance coefficients
@@ -445,7 +441,7 @@ class RandomFeaturesEwaldsTrainer(RandomFeaturesTrainer):
 
     @no_jit()
     @torch.no_grad()
-    def covariances(
+    def covariances(# Covariance matrix for RF
         self,
         model: FrankenPotential,
         dataloader: torch.utils.data.DataLoader,
@@ -465,15 +461,15 @@ class RandomFeaturesEwaldsTrainer(RandomFeaturesTrainer):
             assert isinstance(data, Configuration)
             data = data.to(device=self.device)
             assert data.natoms.numel() == 1, "Batched training is not supported"
-
+            # Build feature map
             target_fmaps = model.grad_feature_map(data, self.training_targets)
             for tgt_name in self.training_targets:
                 fmap = target_fmaps[tgt_name].to(self.buffer_dt)
                 if is_scalar_target(tgt_name):
-                    covs[tgt_name].addmm_(fmap, fmap.T)
+                    covs[tgt_name].addmm_(fmap, fmap.T)#build fmap fmap^T and sum over configurations
                 else:
                     covs[tgt_name].addmm_(fmap, fmap.T)
-        # Sync covariance matrices & coefficients
+        # Sync covariance matrices & coefficients for distribuited training
         for tgt_name in self.training_targets:
             dist_utils.all_sum(covs[tgt_name])
         # RF normalization
@@ -481,9 +477,9 @@ class RandomFeaturesEwaldsTrainer(RandomFeaturesTrainer):
         if self.random_features_normalization == "leading_eig":
             norm_coefs = {}
             for tgt_name in self.training_targets:
-                norm, _ = torch.lobpcg(covs[tgt_name], k=1, largest=True)
+                norm, _ = torch.lobpcg(covs[tgt_name], k=1, largest=True) #compute the largest eigenvalue
                 norm_coefs[tgt_name] = norm
-                covs[tgt_name].div_(norm)
+                covs[tgt_name].div_(norm) #normalization with the largest eigenvalue
         elif self.random_features_normalization is not None:
             raise NotImplementedError(
                 f"Covariance normalization {self.random_features_normalization} is not implemented."
@@ -491,34 +487,35 @@ class RandomFeaturesEwaldsTrainer(RandomFeaturesTrainer):
         return covs, norm_coefs
 
     @torch.no_grad()
-    def solve(
+    def solve( # solver for (A +lambda*I)w=b where A is covariance matrix and b =RF_map*(y-y_les)
         self,
-        covs: dict[TargetType, Tensor],
-        coeffs: dict[TargetType, Tensor],
-        l2_penalty: float = 1e-6,
-        x0: Tensor | None = None,
+        covs: dict[TargetType, Tensor],# from covariances() 
+        coeffs: dict[TargetType, Tensor], # from residual_coeffs()
+        l2_penalty: float = 1e-6, # ridge regularisation
+        x0: Tensor | None = None, #initial guess for cg
         cg_maxiter: int = 50,
         cg_tol: float = 1e-4,
-        **weights,
+        **weights, # e.g. energy_weight=1.0, forces_weight=100.0
     ) -> Tensor:
         target_weight = {}
-        for k, v in weights.items():
+        for k, v in weights.items(): #extract target weight
             target_weight[k.split("_")[0]] = v
         weights_norm_factor = sum(target_weight.values())
-        solve_cov, solve_coeff = None, None
+        solve_cov, solve_coeff = None, None # 
         for tt in self.training_targets:
             normalized_weight = target_weight[tt] / weights_norm_factor
-            if solve_cov is None or solve_coeff is None:
-                solve_cov = covs[tt] * normalized_weight
-                solve_coeff = coeffs[tt] * normalized_weight
-            else:
-                solve_cov.add_(covs[tt], alpha=normalized_weight)
-                solve_coeff.add_(coeffs[tt], alpha=normalized_weight)
+            if solve_cov is None or solve_coeff is None: #for first target (e.g. energy)
+                solve_cov = covs[tt] * normalized_weight # covariance matrix
+                solve_coeff = coeffs[tt] * normalized_weight # b= RF_map*(y-y_les)
+            else: # for other target sum contribution due to energy, forces and stress
+                solve_cov.add_(covs[tt], alpha=normalized_weight)# A= sum (w A) =w_energy* A_energy +w_force*A_force+w_stress_A_stress
+                solve_coeff.add_(coeffs[tt], alpha=normalized_weight) # b=sum (w b) =w_energy* b_energy +w_force*b_force+w_stress_b_stress
         assert solve_cov is not None and solve_coeff is not None
-        if self.solver == "cg":
+        if self.solver == "cg": #solver with cg for the SR part
             solve_cov.diagonal().add_(l2_penalty)
             return conjugate_gradient(
                 A=solve_cov, b=solve_coeff, x0=x0, max_iter=cg_maxiter, tol=cg_tol
             )
-        else:
+        else: # direct/closed for solution for SR part
             return psd_ridge(solve_cov, solve_coeff, l2_penalty)
+        # return RF weights

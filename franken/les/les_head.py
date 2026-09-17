@@ -80,8 +80,9 @@ class LESHead(nn.Module):
     ):
         compute_force = franken.data.base.FORCES_TARGET_KEY in targets
         compute_stress = franken.data.base.STRESS_TARGET_KEY in targets  #equivalent to compute_force = ("forces" in targets) True/False
-        compute_LES_charge= franken.data.base.LES_CHARGE_TARGET_KEY in targets
-        energies,les_charge = self(atom_features, data)
+        compute_LES_charges= franken.data.base.LES_CHARGES_TARGET_KEY in targets
+        energies, les_charges = self(atom_features, data)
+        
         if compute_stress:
             assert displacement is not None
             forces, stress = _forces_stress_bwdad_helper(energies, displacement, data)
@@ -96,12 +97,13 @@ class LESHead(nn.Module):
                 franken.data.base.FORCES_TARGET_KEY: forces.detach(),
                 franken.data.base.ENERGY_TARGET_KEY: energies.detach(),
             }
-        elif compute_LES_charge:
+        elif compute_LES_charges:
             forces, stress = _forces_bwdad_helper(energies, data)
+            
             return {
                     franken.data.base.FORCES_TARGET_KEY: forces.detach(),
                     franken.data.base.ENERGY_TARGET_KEY: energies.detach(),
-                    franken.data.base.LES_CHARGE_TARGET_KEY: les_charge.detach(),
+                    franken.data.base.LES_CHARGES_TARGET_KEY: les_charges.detach(),
             }
         else:
             return {
@@ -128,6 +130,7 @@ class LESHead(nn.Module):
         charge : tensor shape (1,)
         """
         # predict atomwise contributions
+
         y = self.outnet(atom_features)
         if self.linear_nn is not None:
             y = y + self.linear_nn(atom_features)#Output is essential a linear contribution + a non-linear contribution

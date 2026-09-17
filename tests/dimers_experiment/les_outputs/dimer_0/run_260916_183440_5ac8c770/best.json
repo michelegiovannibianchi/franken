@@ -1,0 +1,67 @@
+{
+    "checkpoint": {
+        "hash": "f26aa9c11f687ac405458413ba113be0",
+        "rf_weight_id": 0
+    },
+    "timings": {
+        "cov_coeffs": 0,
+        "solve": 0
+    },
+    "metrics": {
+        "validation": {
+            "energy_MAE": 10.244775029750071,
+            "energy_RMSE": 10.367191186276306,
+            "forces_MAE": 29.8732852935791,
+            "forces_MAE_species_1": 15.779128608604271,
+            "forces_MAE_species_6": 52.537199296057224,
+            "forces_MAE_species_7": 43.25026853217019,
+            "forces_MAE_species_8": 44.76004590590795,
+            "forces_RMSE": 40.90651074418788,
+            "forces_RMSE_species_1": 21.07390299587975,
+            "forces_RMSE_species_6": 62.68139699565743,
+            "forces_RMSE_species_7": 50.583419170478976,
+            "forces_RMSE_species_8": 51.926029662481696,
+            "forces_cosim": 0.9410714308420817
+        }
+    },
+    "hyperparameters": {
+        "franken": {
+            "path_or_id": "mace_mp/small",
+            "family": "mace",
+            "interaction_block": 2
+        },
+        "random_features": {
+            "rf_type": "multiscale-gaussian",
+            "num_random_features": 2048,
+            "length_scale_low": 4,
+            "length_scale_high": 20,
+            "length_scale_num": 6,
+            "use_offset": true,
+            "rng_seed": 1337
+        },
+        "input_scaler": {
+            "scale_by_Z": true
+        },
+        "les": {
+            "n_layers": 3,
+            "hidden_dim": [
+                64,
+                32
+            ],
+            "dl": 3,
+            "sigma": 1.0,
+            "les_output_scale": 0.1,
+            "add_linear_nn": true
+        },
+        "solver": {
+            "energy_weight": 1.0,
+            "forces_weight": 0.1,
+            "l2_penalty": 1e-10,
+            "dtype": "torch.float64",
+            "les_lr": 0.0001,
+            "les_optim": "adam",
+            "num_outer": 10,
+            "num_inner": 3000
+        }
+    }
+}

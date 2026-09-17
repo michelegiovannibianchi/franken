@@ -22,6 +22,7 @@ import franken.data
 import franken.data.base
 from franken.data.dataset import FrankenAtomsDataset
 from franken.rf.model import FrankenPotential
+from franken.rf.les_model import LESFrankenPotential
 
 
 # Download the data from here:
@@ -185,6 +186,8 @@ def test_franken(
         name=f"dimer_{dset.id}", train_path=train_path
     )
     model = model_cls.load(model_path)
+    print(type(model))
+    print(model.__class__)
     model.eval()
     frk_dset = FrankenAtomsDataset(
         data_path=train_path,
@@ -249,7 +252,10 @@ if __name__ == "__main__":
         length_scale_num=6
     )
 
-    if False:  # train standard franken (autotune)
+# Manual Flag for Long Range
+    LR=True  # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    
+    if LR==False:  # train standard franken (autotune)
         slv_cfg = SolverConfig(
             l2_penalty=np.logspace(-11, -6, 6).tolist(),
             force_weight=np.logspace(-1, 4, 6).tolist(),
@@ -261,7 +267,10 @@ if __name__ == "__main__":
                 bbone=bb_cfg,
                 rfs=rf_cfg,
             )
-    if False:  # examine trained models
+            # Only do the first dimer to start!
+            break
+            
+    if LR==False:  # examine trained models
         energy_rmse, forces_rmse = [], []
         binding_energies = {}
         for d, dataset in enumerate(datasets):
@@ -304,7 +313,8 @@ if __name__ == "__main__":
         ax.legend(loc="best")
         plt.savefig('SR_binding_energy.png')
         plt.show()
-    if True:  # train LES franken
+        
+    if LR==True:  # train LES franken
         for dataset in datasets:
             franken_dir = get_newest_rundir(
                 pathlib.Path(f"franken_outputs/dimer_{dataset.id}")#read the best hyperparametr of the SR model
@@ -312,9 +322,9 @@ if __name__ == "__main__":
             with open(franken_dir / "best.json", "r") as fh:
                 best_log = json.load(fh)
             slv_cfg = SolverConfig(
-                l2_penalty=1e-11,#best_log["hyperparameters"]["solver"]["l2_penalty"],
-                energy_weight=1,
-                force_weight=1#best_log["hyperparameters"]["solver"]["forces_weight"],
+                l2_penalty=best_log["hyperparameters"]["solver"]["l2_penalty"],
+                energy_weight=best_log["hyperparameters"]["solver"]["energy_weight"],
+                force_weight=best_log["hyperparameters"]["solver"]["forces_weight"],
             )
             train_franken_les(
                 dset=dataset,
@@ -324,7 +334,7 @@ if __name__ == "__main__":
             )
             # Only do the first dimer to start!
             break
-    if True:  # examine trained models
+    if LR==True:  # examine trained models
         energy_rmse, forces_rmse = [], []
         binding_energies = {}
         for d, dataset in enumerate(datasets):
@@ -336,7 +346,7 @@ if __name__ == "__main__":
             energy_rmse.append(best_log["metrics"]["validation"]["energy_RMSE"])
             forces_rmse.append(best_log["metrics"]["validation"]["forces_RMSE"])
             # test model on all the data for distance plot
-            preds = test_franken(dataset, franken_dir / "best_ckpt.pt")
+            preds = test_franken(dataset, franken_dir / "best_ckpt.pt",model_cls=LESFrankenPotential)
             # Calculate binding energy
             binding_energies[dataset.id] = defaultdict(list)# model predict total energy, here than translated in binding energy (reference for the monomer is the same, not predicted)
             for i in range(len(dataset.data)):
@@ -368,18 +378,3 @@ if __name__ == "__main__":
         plt.savefig('LR_binding_energy.png')
         plt.show()
 
-
-# Lattice="30.0 0.0 0.0 0.0 30.0 0.0 0.0 0.0 30.0" 
-# Properties=
-# species:S:1:pos:R:3:forces:R:3 
-# dimer_id=0 
-# label=CC 
-# energy=-13964.1459944979 
-# chargeA=1 
-# energyA=-7741.80993019298 
-# chargeB=-1 
-# energyB=-6221.39955938734 
-# indexB=16 
-# distance=7.096956324842526 
-# distance_initial=6.630174209406314 
-# pbc="T T T"

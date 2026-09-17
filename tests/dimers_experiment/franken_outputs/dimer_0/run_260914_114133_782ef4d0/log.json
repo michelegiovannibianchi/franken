@@ -1,0 +1,1874 @@
+[
+    {
+        "checkpoint": {
+            "hash": "33c17a889fe004f55d3d5d117e8afa1e",
+            "rf_weight_id": 0
+        },
+        "timings": {
+            "cov_coeffs": 8.915375940996455,
+            "solve": 0.8710711109888507
+        },
+        "metrics": {
+            "validation": {
+                "energy_MAE": 26.057067288396258,
+                "energy_RMSE": 26.126407002381114,
+                "forces_MAE": 19.489360491434734,
+                "forces_MAE_species_1": 5.054850749169978,
+                "forces_MAE_species_6": 35.89709219522774,
+                "forces_MAE_species_7": 32.31250784463353,
+                "forces_MAE_species_8": 53.059641271829605,
+                "forces_RMSE": 31.800843590828084,
+                "forces_RMSE_species_1": 6.096343906224398,
+                "forces_RMSE_species_6": 48.8696241990898,
+                "forces_RMSE_species_7": 37.36338436572007,
+                "forces_RMSE_species_8": 57.651258823222605,
+                "forces_cosim": 0.0
+            }
+        },
+        "hyperparameters": {
+            "franken": {
+                "path_or_id": "mace_mp/small",
+                "family": "mace",
+                "interaction_block": 2
+            },
+            "random_features": {
+                "rf_type": "multiscale-gaussian",
+                "num_random_features": 2048,
+                "length_scale_low": 4,
+                "length_scale_high": 20,
+                "length_scale_num": 6,
+                "use_offset": true,
+                "rng_seed": 1337
+            },
+            "input_scaler": {
+                "scale_by_Z": true
+            },
+            "solver": {
+                "energy_weight": 1.0,
+                "forces_weight": 0.1,
+                "l2_penalty": 1e-11,
+                "dtype": "torch.float64"
+            }
+        }
+    },
+    {
+        "checkpoint": {
+            "hash": "33c17a889fe004f55d3d5d117e8afa1e",
+            "rf_weight_id": 1
+        },
+        "timings": {
+            "cov_coeffs": 8.915375940996455,
+            "solve": 0.3524073070002487
+        },
+        "metrics": {
+            "validation": {
+                "energy_MAE": 12.301302944805407,
+                "energy_RMSE": 12.447486579736164,
+                "forces_MAE": 24.016619364420574,
+                "forces_MAE_species_1": 9.269921097140282,
+                "forces_MAE_species_6": 43.58109769721826,
+                "forces_MAE_species_7": 46.795086521241394,
+                "forces_MAE_species_8": 36.79124948879083,
+                "forces_RMSE": 36.793541459032205,
+                "forces_RMSE_species_1": 11.049692066814286,
+                "forces_RMSE_species_6": 59.26435888837753,
+                "forces_RMSE_species_7": 53.525461869135455,
+                "forces_RMSE_species_8": 41.18918902971306,
+                "forces_cosim": 0.9813058574994405
+            }
+        },
+        "hyperparameters": {
+            "franken": {
+                "path_or_id": "mace_mp/small",
+                "family": "mace",
+                "interaction_block": 2
+            },
+            "random_features": {
+                "rf_type": "multiscale-gaussian",
+                "num_random_features": 2048,
+                "length_scale_low": 4,
+                "length_scale_high": 20,
+                "length_scale_num": 6,
+                "use_offset": true,
+                "rng_seed": 1337
+            },
+            "input_scaler": {
+                "scale_by_Z": true
+            },
+            "solver": {
+                "energy_weight": 1.0,
+                "forces_weight": 0.1,
+                "l2_penalty": 1e-10,
+                "dtype": "torch.float64"
+            }
+        }
+    },
+    {
+        "checkpoint": {
+            "hash": "33c17a889fe004f55d3d5d117e8afa1e",
+            "rf_weight_id": 2
+        },
+        "timings": {
+            "cov_coeffs": 8.915375940996455,
+            "solve": 0.004583582995110191
+        },
+        "metrics": {
+            "validation": {
+                "energy_MAE": 12.602952503637397,
+                "energy_RMSE": 12.745675836347194,
+                "forces_MAE": 26.38335355122884,
+                "forces_MAE_species_1": 10.634183298605375,
+                "forces_MAE_species_6": 49.099558778107166,
+                "forces_MAE_species_7": 49.59595513840517,
+                "forces_MAE_species_8": 37.143552054961525,
+                "forces_RMSE": 39.567587170386716,
+                "forces_RMSE_species_1": 12.34691434975243,
+                "forces_RMSE_species_6": 64.75167658183562,
+                "forces_RMSE_species_7": 56.26234174238522,
+                "forces_RMSE_species_8": 42.22918736727337,
+                "forces_cosim": 0.9771444201469421
+            }
+        },
+        "hyperparameters": {
+            "franken": {
+                "path_or_id": "mace_mp/small",
+                "family": "mace",
+                "interaction_block": 2
+            },
+            "random_features": {
+                "rf_type": "multiscale-gaussian",
+                "num_random_features": 2048,
+                "length_scale_low": 4,
+                "length_scale_high": 20,
+                "length_scale_num": 6,
+                "use_offset": true,
+                "rng_seed": 1337
+            },
+            "input_scaler": {
+                "scale_by_Z": true
+            },
+            "solver": {
+                "energy_weight": 1.0,
+                "forces_weight": 0.1,
+                "l2_penalty": 1e-09,
+                "dtype": "torch.float64"
+            }
+        }
+    },
+    {
+        "checkpoint": {
+            "hash": "33c17a889fe004f55d3d5d117e8afa1e",
+            "rf_weight_id": 3
+        },
+        "timings": {
+            "cov_coeffs": 8.915375940996455,
+            "solve": 0.004706139996415004
+        },
+        "metrics": {
+            "validation": {
+                "energy_MAE": 13.076686703731168,
+                "energy_RMSE": 13.214314117267124,
+                "forces_MAE": 29.972232818603516,
+                "forces_MAE_species_1": 12.101825875922655,
+                "forces_MAE_species_6": 57.50946141779423,
+                "forces_MAE_species_7": 54.88653605182966,
+                "forces_MAE_species_8": 39.915354611972965,
+                "forces_RMSE": 44.386815942452365,
+                "forces_RMSE_species_1": 14.083263480285517,
+                "forces_RMSE_species_6": 73.51991644851903,
+                "forces_RMSE_species_7": 62.1845054614345,
+                "forces_RMSE_species_8": 45.32840774695844,
+                "forces_cosim": 0.9704500238100687
+            }
+        },
+        "hyperparameters": {
+            "franken": {
+                "path_or_id": "mace_mp/small",
+                "family": "mace",
+                "interaction_block": 2
+            },
+            "random_features": {
+                "rf_type": "multiscale-gaussian",
+                "num_random_features": 2048,
+                "length_scale_low": 4,
+                "length_scale_high": 20,
+                "length_scale_num": 6,
+                "use_offset": true,
+                "rng_seed": 1337
+            },
+            "input_scaler": {
+                "scale_by_Z": true
+            },
+            "solver": {
+                "energy_weight": 1.0,
+                "forces_weight": 0.1,
+                "l2_penalty": 1e-08,
+                "dtype": "torch.float64"
+            }
+        }
+    },
+    {
+        "checkpoint": {
+            "hash": "33c17a889fe004f55d3d5d117e8afa1e",
+            "rf_weight_id": 4
+        },
+        "timings": {
+            "cov_coeffs": 8.915375940996455,
+            "solve": 0.004712287001893856
+        },
+        "metrics": {
+            "validation": {
+                "energy_MAE": 13.917488656248231,
+                "energy_RMSE": 14.046882471128953,
+                "forces_MAE": 33.373019536336265,
+                "forces_MAE_species_1": 12.23397363598148,
+                "forces_MAE_species_6": 65.93251513938108,
+                "forces_MAE_species_7": 65.21964031789038,
+                "forces_MAE_species_8": 41.608117520809174,
+                "forces_RMSE": 50.775563551338585,
+                "forces_RMSE_species_1": 15.631215380799993,
+                "forces_RMSE_species_6": 84.10625245506348,
+                "forces_RMSE_species_7": 73.92639149126026,
+                "forces_RMSE_species_8": 46.67245235695021,
+                "forces_cosim": 0.9582091371218363
+            }
+        },
+        "hyperparameters": {
+            "franken": {
+                "path_or_id": "mace_mp/small",
+                "family": "mace",
+                "interaction_block": 2
+            },
+            "random_features": {
+                "rf_type": "multiscale-gaussian",
+                "num_random_features": 2048,
+                "length_scale_low": 4,
+                "length_scale_high": 20,
+                "length_scale_num": 6,
+                "use_offset": true,
+                "rng_seed": 1337
+            },
+            "input_scaler": {
+                "scale_by_Z": true
+            },
+            "solver": {
+                "energy_weight": 1.0,
+                "forces_weight": 0.1,
+                "l2_penalty": 1e-07,
+                "dtype": "torch.float64"
+            }
+        }
+    },
+    {
+        "checkpoint": {
+            "hash": "33c17a889fe004f55d3d5d117e8afa1e",
+            "rf_weight_id": 5
+        },
+        "timings": {
+            "cov_coeffs": 8.915375940996455,
+            "solve": 0.004720764991361648
+        },
+        "metrics": {
+            "validation": {
+                "energy_MAE": 15.885822273892279,
+                "energy_RMSE": 15.999305242666832,
+                "forces_MAE": 36.71567916870117,
+                "forces_MAE_species_1": 13.02376071898601,
+                "forces_MAE_species_6": 71.41386323298018,
+                "forces_MAE_species_7": 77.32313829991553,
+                "forces_MAE_species_8": 43.056475929915905,
+                "forces_RMSE": 56.60069019719579,
+                "forces_RMSE_species_1": 16.329775304313436,
+                "forces_RMSE_species_6": 91.66476840646682,
+                "forces_RMSE_species_7": 88.80789260936113,
+                "forces_RMSE_species_8": 47.66763095408572,
+                "forces_cosim": 0.9502318104108175
+            }
+        },
+        "hyperparameters": {
+            "franken": {
+                "path_or_id": "mace_mp/small",
+                "family": "mace",
+                "interaction_block": 2
+            },
+            "random_features": {
+                "rf_type": "multiscale-gaussian",
+                "num_random_features": 2048,
+                "length_scale_low": 4,
+                "length_scale_high": 20,
+                "length_scale_num": 6,
+                "use_offset": true,
+                "rng_seed": 1337
+            },
+            "input_scaler": {
+                "scale_by_Z": true
+            },
+            "solver": {
+                "energy_weight": 1.0,
+                "forces_weight": 0.1,
+                "l2_penalty": 1e-06,
+                "dtype": "torch.float64"
+            }
+        }
+    },
+    {
+        "checkpoint": {
+            "hash": "33c17a889fe004f55d3d5d117e8afa1e",
+            "rf_weight_id": 6
+        },
+        "timings": {
+            "cov_coeffs": 8.915375940996455,
+            "solve": 0.00657459200010635
+        },
+        "metrics": {
+            "validation": {
+                "energy_MAE": 26.057067288396258,
+                "energy_RMSE": 26.126407002381114,
+                "forces_MAE": 19.489360491434734,
+                "forces_MAE_species_1": 5.054850749169978,
+                "forces_MAE_species_6": 35.89709219522774,
+                "forces_MAE_species_7": 32.31250784463353,
+                "forces_MAE_species_8": 53.059641271829605,
+                "forces_RMSE": 31.800843590828084,
+                "forces_RMSE_species_1": 6.096343906224398,
+                "forces_RMSE_species_6": 48.8696241990898,
+                "forces_RMSE_species_7": 37.36338436572007,
+                "forces_RMSE_species_8": 57.651258823222605,
+                "forces_cosim": 0.0
+            }
+        },
+        "hyperparameters": {
+            "franken": {
+                "path_or_id": "mace_mp/small",
+                "family": "mace",
+                "interaction_block": 2
+            },
+            "random_features": {
+                "rf_type": "multiscale-gaussian",
+                "num_random_features": 2048,
+                "length_scale_low": 4,
+                "length_scale_high": 20,
+                "length_scale_num": 6,
+                "use_offset": true,
+                "rng_seed": 1337
+            },
+            "input_scaler": {
+                "scale_by_Z": true
+            },
+            "solver": {
+                "energy_weight": 1.0,
+                "forces_weight": 1.0,
+                "l2_penalty": 1e-11,
+                "dtype": "torch.float64"
+            }
+        }
+    },
+    {
+        "checkpoint": {
+            "hash": "33c17a889fe004f55d3d5d117e8afa1e",
+            "rf_weight_id": 7
+        },
+        "timings": {
+            "cov_coeffs": 8.915375940996455,
+            "solve": 0.005171703000087291
+        },
+        "metrics": {
+            "validation": {
+                "energy_MAE": 26.057067288396258,
+                "energy_RMSE": 26.126407002381114,
+                "forces_MAE": 19.489360491434734,
+                "forces_MAE_species_1": 5.054850749169978,
+                "forces_MAE_species_6": 35.89709219522774,
+                "forces_MAE_species_7": 32.31250784463353,
+                "forces_MAE_species_8": 53.059641271829605,
+                "forces_RMSE": 31.800843590828084,
+                "forces_RMSE_species_1": 6.096343906224398,
+                "forces_RMSE_species_6": 48.8696241990898,
+                "forces_RMSE_species_7": 37.36338436572007,
+                "forces_RMSE_species_8": 57.651258823222605,
+                "forces_cosim": 0.0
+            }
+        },
+        "hyperparameters": {
+            "franken": {
+                "path_or_id": "mace_mp/small",
+                "family": "mace",
+                "interaction_block": 2
+            },
+            "random_features": {
+                "rf_type": "multiscale-gaussian",
+                "num_random_features": 2048,
+                "length_scale_low": 4,
+                "length_scale_high": 20,
+                "length_scale_num": 6,
+                "use_offset": true,
+                "rng_seed": 1337
+            },
+            "input_scaler": {
+                "scale_by_Z": true
+            },
+            "solver": {
+                "energy_weight": 1.0,
+                "forces_weight": 1.0,
+                "l2_penalty": 1e-10,
+                "dtype": "torch.float64"
+            }
+        }
+    },
+    {
+        "checkpoint": {
+            "hash": "33c17a889fe004f55d3d5d117e8afa1e",
+            "rf_weight_id": 8
+        },
+        "timings": {
+            "cov_coeffs": 8.915375940996455,
+            "solve": 0.004492681997362524
+        },
+        "metrics": {
+            "validation": {
+                "energy_MAE": 13.362692013565129,
+                "energy_RMSE": 13.497399453360142,
+                "forces_MAE": 23.541849772135418,
+                "forces_MAE_species_1": 8.426383382473619,
+                "forces_MAE_species_6": 42.82363054032127,
+                "forces_MAE_species_7": 47.44990107913812,
+                "forces_MAE_species_8": 37.72584907710552,
+                "forces_RMSE": 36.53584385809123,
+                "forces_RMSE_species_1": 9.853758418428288,
+                "forces_RMSE_species_6": 58.647832187956446,
+                "forces_RMSE_species_7": 53.769583245471004,
+                "forces_RMSE_species_8": 42.239565945701884,
+                "forces_cosim": 0.9841909408569336
+            }
+        },
+        "hyperparameters": {
+            "franken": {
+                "path_or_id": "mace_mp/small",
+                "family": "mace",
+                "interaction_block": 2
+            },
+            "random_features": {
+                "rf_type": "multiscale-gaussian",
+                "num_random_features": 2048,
+                "length_scale_low": 4,
+                "length_scale_high": 20,
+                "length_scale_num": 6,
+                "use_offset": true,
+                "rng_seed": 1337
+            },
+            "input_scaler": {
+                "scale_by_Z": true
+            },
+            "solver": {
+                "energy_weight": 1.0,
+                "forces_weight": 1.0,
+                "l2_penalty": 1e-09,
+                "dtype": "torch.float64"
+            }
+        }
+    },
+    {
+        "checkpoint": {
+            "hash": "33c17a889fe004f55d3d5d117e8afa1e",
+            "rf_weight_id": 9
+        },
+        "timings": {
+            "cov_coeffs": 8.915375940996455,
+            "solve": 0.004716409006505273
+        },
+        "metrics": {
+            "validation": {
+                "energy_MAE": 13.983628649984366,
+                "energy_RMSE": 14.112411819814248,
+                "forces_MAE": 25.954421361287434,
+                "forces_MAE_species_1": 9.53915678203488,
+                "forces_MAE_species_6": 47.69383889312546,
+                "forces_MAE_species_7": 51.511855175097786,
+                "forces_MAE_species_8": 39.968933599690594,
+                "forces_RMSE": 39.93171406803916,
+                "forces_RMSE_species_1": 10.944980418275849,
+                "forces_RMSE_species_6": 64.65979283561805,
+                "forces_RMSE_species_7": 58.24422391769593,
+                "forces_RMSE_species_8": 44.91963350709151,
+                "forces_cosim": 0.9825661182403564
+            }
+        },
+        "hyperparameters": {
+            "franken": {
+                "path_or_id": "mace_mp/small",
+                "family": "mace",
+                "interaction_block": 2
+            },
+            "random_features": {
+                "rf_type": "multiscale-gaussian",
+                "num_random_features": 2048,
+                "length_scale_low": 4,
+                "length_scale_high": 20,
+                "length_scale_num": 6,
+                "use_offset": true,
+                "rng_seed": 1337
+            },
+            "input_scaler": {
+                "scale_by_Z": true
+            },
+            "solver": {
+                "energy_weight": 1.0,
+                "forces_weight": 1.0,
+                "l2_penalty": 1e-08,
+                "dtype": "torch.float64"
+            }
+        }
+    },
+    {
+        "checkpoint": {
+            "hash": "33c17a889fe004f55d3d5d117e8afa1e",
+            "rf_weight_id": 10
+        },
+        "timings": {
+            "cov_coeffs": 8.915375940996455,
+            "solve": 0.004709520988399163
+        },
+        "metrics": {
+            "validation": {
+                "energy_MAE": 15.019885382228665,
+                "energy_RMSE": 15.139858704974994,
+                "forces_MAE": 28.733425776163738,
+                "forces_MAE_species_1": 9.836312980414966,
+                "forces_MAE_species_6": 54.03994815424085,
+                "forces_MAE_species_7": 59.03866224818759,
+                "forces_MAE_species_8": 42.84048732370138,
+                "forces_RMSE": 44.748172144919636,
+                "forces_RMSE_species_1": 11.658314483541448,
+                "forces_RMSE_species_6": 72.39925407057422,
+                "forces_RMSE_species_7": 67.08321409802275,
+                "forces_RMSE_species_8": 47.851499955629485,
+                "forces_cosim": 0.9793630639712015
+            }
+        },
+        "hyperparameters": {
+            "franken": {
+                "path_or_id": "mace_mp/small",
+                "family": "mace",
+                "interaction_block": 2
+            },
+            "random_features": {
+                "rf_type": "multiscale-gaussian",
+                "num_random_features": 2048,
+                "length_scale_low": 4,
+                "length_scale_high": 20,
+                "length_scale_num": 6,
+                "use_offset": true,
+                "rng_seed": 1337
+            },
+            "input_scaler": {
+                "scale_by_Z": true
+            },
+            "solver": {
+                "energy_weight": 1.0,
+                "forces_weight": 1.0,
+                "l2_penalty": 1e-07,
+                "dtype": "torch.float64"
+            }
+        }
+    },
+    {
+        "checkpoint": {
+            "hash": "33c17a889fe004f55d3d5d117e8afa1e",
+            "rf_weight_id": 11
+        },
+        "timings": {
+            "cov_coeffs": 8.915375940996455,
+            "solve": 0.0047158079978544265
+        },
+        "metrics": {
+            "validation": {
+                "energy_MAE": 17.09659589479101,
+                "energy_RMSE": 17.202092140476243,
+                "forces_MAE": 31.553122838338215,
+                "forces_MAE_species_1": 9.358690394900547,
+                "forces_MAE_species_6": 61.45277426888545,
+                "forces_MAE_species_7": 69.14904796414906,
+                "forces_MAE_species_8": 44.67390384525061,
+                "forces_RMSE": 50.31656433950128,
+                "forces_RMSE_species_1": 11.637258982956988,
+                "forces_RMSE_species_6": 81.08905180230745,
+                "forces_RMSE_species_7": 78.98659684805979,
+                "forces_RMSE_species_8": 49.37635932572886,
+                "forces_cosim": 0.9721818367640177
+            }
+        },
+        "hyperparameters": {
+            "franken": {
+                "path_or_id": "mace_mp/small",
+                "family": "mace",
+                "interaction_block": 2
+            },
+            "random_features": {
+                "rf_type": "multiscale-gaussian",
+                "num_random_features": 2048,
+                "length_scale_low": 4,
+                "length_scale_high": 20,
+                "length_scale_num": 6,
+                "use_offset": true,
+                "rng_seed": 1337
+            },
+            "input_scaler": {
+                "scale_by_Z": true
+            },
+            "solver": {
+                "energy_weight": 1.0,
+                "forces_weight": 1.0,
+                "l2_penalty": 1e-06,
+                "dtype": "torch.float64"
+            }
+        }
+    },
+    {
+        "checkpoint": {
+            "hash": "33c17a889fe004f55d3d5d117e8afa1e",
+            "rf_weight_id": 12
+        },
+        "timings": {
+            "cov_coeffs": 8.915375940996455,
+            "solve": 0.006215862013050355
+        },
+        "metrics": {
+            "validation": {
+                "energy_MAE": 26.057067288396258,
+                "energy_RMSE": 26.126407002381114,
+                "forces_MAE": 19.489360491434734,
+                "forces_MAE_species_1": 5.054850749169978,
+                "forces_MAE_species_6": 35.89709219522774,
+                "forces_MAE_species_7": 32.31250784463353,
+                "forces_MAE_species_8": 53.059641271829605,
+                "forces_RMSE": 31.800843590828084,
+                "forces_RMSE_species_1": 6.096343906224398,
+                "forces_RMSE_species_6": 48.8696241990898,
+                "forces_RMSE_species_7": 37.36338436572007,
+                "forces_RMSE_species_8": 57.651258823222605,
+                "forces_cosim": 0.0
+            }
+        },
+        "hyperparameters": {
+            "franken": {
+                "path_or_id": "mace_mp/small",
+                "family": "mace",
+                "interaction_block": 2
+            },
+            "random_features": {
+                "rf_type": "multiscale-gaussian",
+                "num_random_features": 2048,
+                "length_scale_low": 4,
+                "length_scale_high": 20,
+                "length_scale_num": 6,
+                "use_offset": true,
+                "rng_seed": 1337
+            },
+            "input_scaler": {
+                "scale_by_Z": true
+            },
+            "solver": {
+                "energy_weight": 1.0,
+                "forces_weight": 10.0,
+                "l2_penalty": 1e-11,
+                "dtype": "torch.float64"
+            }
+        }
+    },
+    {
+        "checkpoint": {
+            "hash": "33c17a889fe004f55d3d5d117e8afa1e",
+            "rf_weight_id": 13
+        },
+        "timings": {
+            "cov_coeffs": 8.915375940996455,
+            "solve": 0.006074478005757555
+        },
+        "metrics": {
+            "validation": {
+                "energy_MAE": 26.057067288396258,
+                "energy_RMSE": 26.126407002381114,
+                "forces_MAE": 19.489360491434734,
+                "forces_MAE_species_1": 5.054850749169978,
+                "forces_MAE_species_6": 35.89709219522774,
+                "forces_MAE_species_7": 32.31250784463353,
+                "forces_MAE_species_8": 53.059641271829605,
+                "forces_RMSE": 31.800843590828084,
+                "forces_RMSE_species_1": 6.096343906224398,
+                "forces_RMSE_species_6": 48.8696241990898,
+                "forces_RMSE_species_7": 37.36338436572007,
+                "forces_RMSE_species_8": 57.651258823222605,
+                "forces_cosim": 0.0
+            }
+        },
+        "hyperparameters": {
+            "franken": {
+                "path_or_id": "mace_mp/small",
+                "family": "mace",
+                "interaction_block": 2
+            },
+            "random_features": {
+                "rf_type": "multiscale-gaussian",
+                "num_random_features": 2048,
+                "length_scale_low": 4,
+                "length_scale_high": 20,
+                "length_scale_num": 6,
+                "use_offset": true,
+                "rng_seed": 1337
+            },
+            "input_scaler": {
+                "scale_by_Z": true
+            },
+            "solver": {
+                "energy_weight": 1.0,
+                "forces_weight": 10.0,
+                "l2_penalty": 1e-10,
+                "dtype": "torch.float64"
+            }
+        }
+    },
+    {
+        "checkpoint": {
+            "hash": "33c17a889fe004f55d3d5d117e8afa1e",
+            "rf_weight_id": 14
+        },
+        "timings": {
+            "cov_coeffs": 8.915375940996455,
+            "solve": 0.004472807006095536
+        },
+        "metrics": {
+            "validation": {
+                "energy_MAE": 15.245334669642666,
+                "energy_RMSE": 15.363546619969355,
+                "forces_MAE": 22.71295928955078,
+                "forces_MAE_species_1": 7.439588554776632,
+                "forces_MAE_species_6": 41.60178347180287,
+                "forces_MAE_species_7": 46.990275796916755,
+                "forces_MAE_species_8": 38.35182978461186,
+                "forces_RMSE": 35.5676898889626,
+                "forces_RMSE_species_1": 8.535701782105306,
+                "forces_RMSE_species_6": 56.627720319003274,
+                "forces_RMSE_species_7": 53.01340047702599,
+                "forces_RMSE_species_8": 42.92133690707862,
+                "forces_cosim": 0.9868192871411642
+            }
+        },
+        "hyperparameters": {
+            "franken": {
+                "path_or_id": "mace_mp/small",
+                "family": "mace",
+                "interaction_block": 2
+            },
+            "random_features": {
+                "rf_type": "multiscale-gaussian",
+                "num_random_features": 2048,
+                "length_scale_low": 4,
+                "length_scale_high": 20,
+                "length_scale_num": 6,
+                "use_offset": true,
+                "rng_seed": 1337
+            },
+            "input_scaler": {
+                "scale_by_Z": true
+            },
+            "solver": {
+                "energy_weight": 1.0,
+                "forces_weight": 10.0,
+                "l2_penalty": 1e-09,
+                "dtype": "torch.float64"
+            }
+        }
+    },
+    {
+        "checkpoint": {
+            "hash": "33c17a889fe004f55d3d5d117e8afa1e",
+            "rf_weight_id": 15
+        },
+        "timings": {
+            "cov_coeffs": 8.915375940996455,
+            "solve": 0.004711026995209977
+        },
+        "metrics": {
+            "validation": {
+                "energy_MAE": 16.03170674684077,
+                "energy_RMSE": 16.144162580548777,
+                "forces_MAE": 24.902984619140625,
+                "forces_MAE_species_1": 8.493419432152923,
+                "forces_MAE_species_6": 45.61981549486518,
+                "forces_MAE_species_7": 51.22477933764458,
+                "forces_MAE_species_8": 40.29038889954487,
+                "forces_RMSE": 38.691808740029835,
+                "forces_RMSE_species_1": 9.845034180535801,
+                "forces_RMSE_species_6": 61.8076632083235,
+                "forces_RMSE_species_7": 57.74620989703861,
+                "forces_RMSE_species_8": 45.09688082261441,
+                "forces_cosim": 0.9852034449577332
+            }
+        },
+        "hyperparameters": {
+            "franken": {
+                "path_or_id": "mace_mp/small",
+                "family": "mace",
+                "interaction_block": 2
+            },
+            "random_features": {
+                "rf_type": "multiscale-gaussian",
+                "num_random_features": 2048,
+                "length_scale_low": 4,
+                "length_scale_high": 20,
+                "length_scale_num": 6,
+                "use_offset": true,
+                "rng_seed": 1337
+            },
+            "input_scaler": {
+                "scale_by_Z": true
+            },
+            "solver": {
+                "energy_weight": 1.0,
+                "forces_weight": 10.0,
+                "l2_penalty": 1e-08,
+                "dtype": "torch.float64"
+            }
+        }
+    },
+    {
+        "checkpoint": {
+            "hash": "33c17a889fe004f55d3d5d117e8afa1e",
+            "rf_weight_id": 16
+        },
+        "timings": {
+            "cov_coeffs": 8.915375940996455,
+            "solve": 0.004716113995527849
+        },
+        "metrics": {
+            "validation": {
+                "energy_MAE": 17.39471078948607,
+                "energy_RMSE": 17.498409779366778,
+                "forces_MAE": 27.76987584431966,
+                "forces_MAE_species_1": 9.04031303854516,
+                "forces_MAE_species_6": 51.73016404733062,
+                "forces_MAE_species_7": 58.378191043933235,
+                "forces_MAE_species_8": 43.698833634456,
+                "forces_RMSE": 43.46238015863542,
+                "forces_RMSE_species_1": 10.76695277001068,
+                "forces_RMSE_species_6": 69.3696909361058,
+                "forces_RMSE_species_7": 66.14339287312687,
+                "forces_RMSE_species_8": 48.7536416590632,
+                "forces_cosim": 0.9826334913571676
+            }
+        },
+        "hyperparameters": {
+            "franken": {
+                "path_or_id": "mace_mp/small",
+                "family": "mace",
+                "interaction_block": 2
+            },
+            "random_features": {
+                "rf_type": "multiscale-gaussian",
+                "num_random_features": 2048,
+                "length_scale_low": 4,
+                "length_scale_high": 20,
+                "length_scale_num": 6,
+                "use_offset": true,
+                "rng_seed": 1337
+            },
+            "input_scaler": {
+                "scale_by_Z": true
+            },
+            "solver": {
+                "energy_weight": 1.0,
+                "forces_weight": 10.0,
+                "l2_penalty": 1e-07,
+                "dtype": "torch.float64"
+            }
+        }
+    },
+    {
+        "checkpoint": {
+            "hash": "33c17a889fe004f55d3d5d117e8afa1e",
+            "rf_weight_id": 17
+        },
+        "timings": {
+            "cov_coeffs": 8.915375940996455,
+            "solve": 0.004712670997832902
+        },
+        "metrics": {
+            "validation": {
+                "energy_MAE": 20.11514855083711,
+                "energy_RMSE": 20.204890566273665,
+                "forces_MAE": 30.37843132019043,
+                "forces_MAE_species_1": 8.725921330877986,
+                "forces_MAE_species_6": 58.058828612168625,
+                "forces_MAE_species_7": 67.88417531384363,
+                "forces_MAE_species_8": 45.660159861048065,
+                "forces_RMSE": 48.61838873399808,
+                "forces_RMSE_species_1": 10.8356857219072,
+                "forces_RMSE_species_6": 77.19318460589021,
+                "forces_RMSE_species_7": 77.34828210138488,
+                "forces_RMSE_species_8": 50.48580519850591,
+                "forces_cosim": 0.9766516288121542
+            }
+        },
+        "hyperparameters": {
+            "franken": {
+                "path_or_id": "mace_mp/small",
+                "family": "mace",
+                "interaction_block": 2
+            },
+            "random_features": {
+                "rf_type": "multiscale-gaussian",
+                "num_random_features": 2048,
+                "length_scale_low": 4,
+                "length_scale_high": 20,
+                "length_scale_num": 6,
+                "use_offset": true,
+                "rng_seed": 1337
+            },
+            "input_scaler": {
+                "scale_by_Z": true
+            },
+            "solver": {
+                "energy_weight": 1.0,
+                "forces_weight": 10.0,
+                "l2_penalty": 1e-06,
+                "dtype": "torch.float64"
+            }
+        }
+    },
+    {
+        "checkpoint": {
+            "hash": "33c17a889fe004f55d3d5d117e8afa1e",
+            "rf_weight_id": 18
+        },
+        "timings": {
+            "cov_coeffs": 8.915375940996455,
+            "solve": 0.006460775010054931
+        },
+        "metrics": {
+            "validation": {
+                "energy_MAE": 26.057067288396258,
+                "energy_RMSE": 26.126407002381114,
+                "forces_MAE": 19.489360491434734,
+                "forces_MAE_species_1": 5.054850749169978,
+                "forces_MAE_species_6": 35.89709219522774,
+                "forces_MAE_species_7": 32.31250784463353,
+                "forces_MAE_species_8": 53.059641271829605,
+                "forces_RMSE": 31.800843590828084,
+                "forces_RMSE_species_1": 6.096343906224398,
+                "forces_RMSE_species_6": 48.8696241990898,
+                "forces_RMSE_species_7": 37.36338436572007,
+                "forces_RMSE_species_8": 57.651258823222605,
+                "forces_cosim": 0.0
+            }
+        },
+        "hyperparameters": {
+            "franken": {
+                "path_or_id": "mace_mp/small",
+                "family": "mace",
+                "interaction_block": 2
+            },
+            "random_features": {
+                "rf_type": "multiscale-gaussian",
+                "num_random_features": 2048,
+                "length_scale_low": 4,
+                "length_scale_high": 20,
+                "length_scale_num": 6,
+                "use_offset": true,
+                "rng_seed": 1337
+            },
+            "input_scaler": {
+                "scale_by_Z": true
+            },
+            "solver": {
+                "energy_weight": 1.0,
+                "forces_weight": 100.0,
+                "l2_penalty": 1e-11,
+                "dtype": "torch.float64"
+            }
+        }
+    },
+    {
+        "checkpoint": {
+            "hash": "33c17a889fe004f55d3d5d117e8afa1e",
+            "rf_weight_id": 19
+        },
+        "timings": {
+            "cov_coeffs": 8.915375940996455,
+            "solve": 0.005818983001518063
+        },
+        "metrics": {
+            "validation": {
+                "energy_MAE": 26.057067288396258,
+                "energy_RMSE": 26.126407002381114,
+                "forces_MAE": 19.489360491434734,
+                "forces_MAE_species_1": 5.054850749169978,
+                "forces_MAE_species_6": 35.89709219522774,
+                "forces_MAE_species_7": 32.31250784463353,
+                "forces_MAE_species_8": 53.059641271829605,
+                "forces_RMSE": 31.800843590828084,
+                "forces_RMSE_species_1": 6.096343906224398,
+                "forces_RMSE_species_6": 48.8696241990898,
+                "forces_RMSE_species_7": 37.36338436572007,
+                "forces_RMSE_species_8": 57.651258823222605,
+                "forces_cosim": 0.0
+            }
+        },
+        "hyperparameters": {
+            "franken": {
+                "path_or_id": "mace_mp/small",
+                "family": "mace",
+                "interaction_block": 2
+            },
+            "random_features": {
+                "rf_type": "multiscale-gaussian",
+                "num_random_features": 2048,
+                "length_scale_low": 4,
+                "length_scale_high": 20,
+                "length_scale_num": 6,
+                "use_offset": true,
+                "rng_seed": 1337
+            },
+            "input_scaler": {
+                "scale_by_Z": true
+            },
+            "solver": {
+                "energy_weight": 1.0,
+                "forces_weight": 100.0,
+                "l2_penalty": 1e-10,
+                "dtype": "torch.float64"
+            }
+        }
+    },
+    {
+        "checkpoint": {
+            "hash": "33c17a889fe004f55d3d5d117e8afa1e",
+            "rf_weight_id": 20
+        },
+        "timings": {
+            "cov_coeffs": 8.915375940996455,
+            "solve": 0.004482236996409483
+        },
+        "metrics": {
+            "validation": {
+                "energy_MAE": 17.650322660657643,
+                "energy_RMSE": 17.752531527218647,
+                "forces_MAE": 22.52371597290039,
+                "forces_MAE_species_1": 6.993449687098082,
+                "forces_MAE_species_6": 41.57579566041628,
+                "forces_MAE_species_7": 47.29372076690197,
+                "forces_MAE_species_8": 38.68523333221674,
+                "forces_RMSE": 35.50658357303007,
+                "forces_RMSE_species_1": 8.153678798660392,
+                "forces_RMSE_species_6": 56.40485139066337,
+                "forces_RMSE_species_7": 53.14648180666546,
+                "forces_RMSE_species_8": 43.3073334091329,
+                "forces_cosim": 0.9873744249343872
+            }
+        },
+        "hyperparameters": {
+            "franken": {
+                "path_or_id": "mace_mp/small",
+                "family": "mace",
+                "interaction_block": 2
+            },
+            "random_features": {
+                "rf_type": "multiscale-gaussian",
+                "num_random_features": 2048,
+                "length_scale_low": 4,
+                "length_scale_high": 20,
+                "length_scale_num": 6,
+                "use_offset": true,
+                "rng_seed": 1337
+            },
+            "input_scaler": {
+                "scale_by_Z": true
+            },
+            "solver": {
+                "energy_weight": 1.0,
+                "forces_weight": 100.0,
+                "l2_penalty": 1e-09,
+                "dtype": "torch.float64"
+            }
+        }
+    },
+    {
+        "checkpoint": {
+            "hash": "33c17a889fe004f55d3d5d117e8afa1e",
+            "rf_weight_id": 21
+        },
+        "timings": {
+            "cov_coeffs": 8.915375940996455,
+            "solve": 0.004693805996794254
+        },
+        "metrics": {
+            "validation": {
+                "energy_MAE": 18.462490308303277,
+                "energy_RMSE": 18.560225898752552,
+                "forces_MAE": 24.68976656595866,
+                "forces_MAE_species_1": 8.058420495870404,
+                "forces_MAE_species_6": 45.336900589366756,
+                "forces_MAE_species_7": 51.747282760010826,
+                "forces_MAE_species_8": 40.589421366651855,
+                "forces_RMSE": 38.56959194490046,
+                "forces_RMSE_species_1": 9.492000654975143,
+                "forces_RMSE_species_6": 61.293381832551816,
+                "forces_RMSE_species_7": 58.12170454558175,
+                "forces_RMSE_species_8": 45.414987387424574,
+                "forces_cosim": 0.9856940905253092
+            }
+        },
+        "hyperparameters": {
+            "franken": {
+                "path_or_id": "mace_mp/small",
+                "family": "mace",
+                "interaction_block": 2
+            },
+            "random_features": {
+                "rf_type": "multiscale-gaussian",
+                "num_random_features": 2048,
+                "length_scale_low": 4,
+                "length_scale_high": 20,
+                "length_scale_num": 6,
+                "use_offset": true,
+                "rng_seed": 1337
+            },
+            "input_scaler": {
+                "scale_by_Z": true
+            },
+            "solver": {
+                "energy_weight": 1.0,
+                "forces_weight": 100.0,
+                "l2_penalty": 1e-08,
+                "dtype": "torch.float64"
+            }
+        }
+    },
+    {
+        "checkpoint": {
+            "hash": "33c17a889fe004f55d3d5d117e8afa1e",
+            "rf_weight_id": 22
+        },
+        "timings": {
+            "cov_coeffs": 8.915375940996455,
+            "solve": 0.004710808003437705
+        },
+        "metrics": {
+            "validation": {
+                "energy_MAE": 19.854818099148638,
+                "energy_RMSE": 19.94573198320479,
+                "forces_MAE": 27.685068766276043,
+                "forces_MAE_species_1": 8.847627860422318,
+                "forces_MAE_species_6": 51.2357904886206,
+                "forces_MAE_species_7": 59.07850546969308,
+                "forces_MAE_species_8": 44.16147029648224,
+                "forces_RMSE": 43.38010039897954,
+                "forces_RMSE_species_1": 10.495693705028167,
+                "forces_RMSE_species_6": 68.78238625876159,
+                "forces_RMSE_species_7": 66.69083518230735,
+                "forces_RMSE_species_8": 49.254451189270775,
+                "forces_cosim": 0.9830505053202311
+            }
+        },
+        "hyperparameters": {
+            "franken": {
+                "path_or_id": "mace_mp/small",
+                "family": "mace",
+                "interaction_block": 2
+            },
+            "random_features": {
+                "rf_type": "multiscale-gaussian",
+                "num_random_features": 2048,
+                "length_scale_low": 4,
+                "length_scale_high": 20,
+                "length_scale_num": 6,
+                "use_offset": true,
+                "rng_seed": 1337
+            },
+            "input_scaler": {
+                "scale_by_Z": true
+            },
+            "solver": {
+                "energy_weight": 1.0,
+                "forces_weight": 100.0,
+                "l2_penalty": 1e-07,
+                "dtype": "torch.float64"
+            }
+        }
+    },
+    {
+        "checkpoint": {
+            "hash": "33c17a889fe004f55d3d5d117e8afa1e",
+            "rf_weight_id": 23
+        },
+        "timings": {
+            "cov_coeffs": 8.915375940996455,
+            "solve": 0.004721813995274715
+        },
+        "metrics": {
+            "validation": {
+                "energy_MAE": 22.19471326677286,
+                "energy_RMSE": 22.27607955304393,
+                "forces_MAE": 30.488100051879883,
+                "forces_MAE_species_1": 9.02201066342875,
+                "forces_MAE_species_6": 57.18808456634482,
+                "forces_MAE_species_7": 68.55365013082822,
+                "forces_MAE_species_8": 46.16939586897691,
+                "forces_RMSE": 48.515686355312454,
+                "forces_RMSE_species_1": 10.860855692667398,
+                "forces_RMSE_species_6": 76.40604404091563,
+                "forces_RMSE_species_7": 77.88698659941214,
+                "forces_RMSE_species_8": 51.06236946505921,
+                "forces_cosim": 0.9768974582354227
+            }
+        },
+        "hyperparameters": {
+            "franken": {
+                "path_or_id": "mace_mp/small",
+                "family": "mace",
+                "interaction_block": 2
+            },
+            "random_features": {
+                "rf_type": "multiscale-gaussian",
+                "num_random_features": 2048,
+                "length_scale_low": 4,
+                "length_scale_high": 20,
+                "length_scale_num": 6,
+                "use_offset": true,
+                "rng_seed": 1337
+            },
+            "input_scaler": {
+                "scale_by_Z": true
+            },
+            "solver": {
+                "energy_weight": 1.0,
+                "forces_weight": 100.0,
+                "l2_penalty": 1e-06,
+                "dtype": "torch.float64"
+            }
+        }
+    },
+    {
+        "checkpoint": {
+            "hash": "33c17a889fe004f55d3d5d117e8afa1e",
+            "rf_weight_id": 24
+        },
+        "timings": {
+            "cov_coeffs": 8.915375940996455,
+            "solve": 0.006237994006369263
+        },
+        "metrics": {
+            "validation": {
+                "energy_MAE": 26.057067288396258,
+                "energy_RMSE": 26.126407002381114,
+                "forces_MAE": 19.489360491434734,
+                "forces_MAE_species_1": 5.054850749169978,
+                "forces_MAE_species_6": 35.89709219522774,
+                "forces_MAE_species_7": 32.31250784463353,
+                "forces_MAE_species_8": 53.059641271829605,
+                "forces_RMSE": 31.800843590828084,
+                "forces_RMSE_species_1": 6.096343906224398,
+                "forces_RMSE_species_6": 48.8696241990898,
+                "forces_RMSE_species_7": 37.36338436572007,
+                "forces_RMSE_species_8": 57.651258823222605,
+                "forces_cosim": 0.0
+            }
+        },
+        "hyperparameters": {
+            "franken": {
+                "path_or_id": "mace_mp/small",
+                "family": "mace",
+                "interaction_block": 2
+            },
+            "random_features": {
+                "rf_type": "multiscale-gaussian",
+                "num_random_features": 2048,
+                "length_scale_low": 4,
+                "length_scale_high": 20,
+                "length_scale_num": 6,
+                "use_offset": true,
+                "rng_seed": 1337
+            },
+            "input_scaler": {
+                "scale_by_Z": true
+            },
+            "solver": {
+                "energy_weight": 1.0,
+                "forces_weight": 1000.0,
+                "l2_penalty": 1e-11,
+                "dtype": "torch.float64"
+            }
+        }
+    },
+    {
+        "checkpoint": {
+            "hash": "33c17a889fe004f55d3d5d117e8afa1e",
+            "rf_weight_id": 25
+        },
+        "timings": {
+            "cov_coeffs": 8.915375940996455,
+            "solve": 0.005698060005670413
+        },
+        "metrics": {
+            "validation": {
+                "energy_MAE": 26.057067288396258,
+                "energy_RMSE": 26.126407002381114,
+                "forces_MAE": 19.489360491434734,
+                "forces_MAE_species_1": 5.054850749169978,
+                "forces_MAE_species_6": 35.89709219522774,
+                "forces_MAE_species_7": 32.31250784463353,
+                "forces_MAE_species_8": 53.059641271829605,
+                "forces_RMSE": 31.800843590828084,
+                "forces_RMSE_species_1": 6.096343906224398,
+                "forces_RMSE_species_6": 48.8696241990898,
+                "forces_RMSE_species_7": 37.36338436572007,
+                "forces_RMSE_species_8": 57.651258823222605,
+                "forces_cosim": 0.0
+            }
+        },
+        "hyperparameters": {
+            "franken": {
+                "path_or_id": "mace_mp/small",
+                "family": "mace",
+                "interaction_block": 2
+            },
+            "random_features": {
+                "rf_type": "multiscale-gaussian",
+                "num_random_features": 2048,
+                "length_scale_low": 4,
+                "length_scale_high": 20,
+                "length_scale_num": 6,
+                "use_offset": true,
+                "rng_seed": 1337
+            },
+            "input_scaler": {
+                "scale_by_Z": true
+            },
+            "solver": {
+                "energy_weight": 1.0,
+                "forces_weight": 1000.0,
+                "l2_penalty": 1e-10,
+                "dtype": "torch.float64"
+            }
+        }
+    },
+    {
+        "checkpoint": {
+            "hash": "33c17a889fe004f55d3d5d117e8afa1e",
+            "rf_weight_id": 26
+        },
+        "timings": {
+            "cov_coeffs": 8.915375940996455,
+            "solve": 0.004452203997061588
+        },
+        "metrics": {
+            "validation": {
+                "energy_MAE": 18.44083385217148,
+                "energy_RMSE": 18.538685855865374,
+                "forces_MAE": 22.455392837524414,
+                "forces_MAE_species_1": 6.913369222997854,
+                "forces_MAE_species_6": 41.4908495421211,
+                "forces_MAE_species_7": 47.26668985353576,
+                "forces_MAE_species_8": 38.67296098421017,
+                "forces_RMSE": 35.42095031249639,
+                "forces_RMSE_species_1": 8.088606996807236,
+                "forces_RMSE_species_6": 56.23396609053972,
+                "forces_RMSE_species_7": 53.05113834726126,
+                "forces_RMSE_species_8": 43.31114158012413,
+                "forces_cosim": 0.987443208694458
+            }
+        },
+        "hyperparameters": {
+            "franken": {
+                "path_or_id": "mace_mp/small",
+                "family": "mace",
+                "interaction_block": 2
+            },
+            "random_features": {
+                "rf_type": "multiscale-gaussian",
+                "num_random_features": 2048,
+                "length_scale_low": 4,
+                "length_scale_high": 20,
+                "length_scale_num": 6,
+                "use_offset": true,
+                "rng_seed": 1337
+            },
+            "input_scaler": {
+                "scale_by_Z": true
+            },
+            "solver": {
+                "energy_weight": 1.0,
+                "forces_weight": 1000.0,
+                "l2_penalty": 1e-09,
+                "dtype": "torch.float64"
+            }
+        }
+    },
+    {
+        "checkpoint": {
+            "hash": "33c17a889fe004f55d3d5d117e8afa1e",
+            "rf_weight_id": 27
+        },
+        "timings": {
+            "cov_coeffs": 8.915375940996455,
+            "solve": 0.004718573996797204
+        },
+        "metrics": {
+            "validation": {
+                "energy_MAE": 19.148218064388406,
+                "energy_RMSE": 19.242471628754043,
+                "forces_MAE": 24.679912567138672,
+                "forces_MAE_species_1": 8.015066588249725,
+                "forces_MAE_species_6": 45.29099355762203,
+                "forces_MAE_species_7": 51.89451968504323,
+                "forces_MAE_species_8": 40.651799800495304,
+                "forces_RMSE": 38.56121922606764,
+                "forces_RMSE_species_1": 9.451663927822262,
+                "forces_RMSE_species_6": 61.204809227414735,
+                "forces_RMSE_species_7": 58.22603644514387,
+                "forces_RMSE_species_8": 45.48602075724909,
+                "forces_cosim": 0.9857244888941447
+            }
+        },
+        "hyperparameters": {
+            "franken": {
+                "path_or_id": "mace_mp/small",
+                "family": "mace",
+                "interaction_block": 2
+            },
+            "random_features": {
+                "rf_type": "multiscale-gaussian",
+                "num_random_features": 2048,
+                "length_scale_low": 4,
+                "length_scale_high": 20,
+                "length_scale_num": 6,
+                "use_offset": true,
+                "rng_seed": 1337
+            },
+            "input_scaler": {
+                "scale_by_Z": true
+            },
+            "solver": {
+                "energy_weight": 1.0,
+                "forces_weight": 1000.0,
+                "l2_penalty": 1e-08,
+                "dtype": "torch.float64"
+            }
+        }
+    },
+    {
+        "checkpoint": {
+            "hash": "33c17a889fe004f55d3d5d117e8afa1e",
+            "rf_weight_id": 28
+        },
+        "timings": {
+            "cov_coeffs": 8.915375940996455,
+            "solve": 0.004704293009126559
+        },
+        "metrics": {
+            "validation": {
+                "energy_MAE": 20.424938385432416,
+                "energy_RMSE": 20.513325939282698,
+                "forces_MAE": 27.69294548034668,
+                "forces_MAE_species_1": 8.834745209568586,
+                "forces_MAE_species_6": 51.15642671783765,
+                "forces_MAE_species_7": 59.263077874978386,
+                "forces_MAE_species_8": 44.25736020008723,
+                "forces_RMSE": 43.38834769392372,
+                "forces_RMSE_species_1": 10.483177036124705,
+                "forces_RMSE_species_6": 68.69351810565695,
+                "forces_RMSE_species_7": 66.84100971536768,
+                "forces_RMSE_species_8": 49.359904948636796,
+                "forces_cosim": 0.9830529093742371
+            }
+        },
+        "hyperparameters": {
+            "franken": {
+                "path_or_id": "mace_mp/small",
+                "family": "mace",
+                "interaction_block": 2
+            },
+            "random_features": {
+                "rf_type": "multiscale-gaussian",
+                "num_random_features": 2048,
+                "length_scale_low": 4,
+                "length_scale_high": 20,
+                "length_scale_num": 6,
+                "use_offset": true,
+                "rng_seed": 1337
+            },
+            "input_scaler": {
+                "scale_by_Z": true
+            },
+            "solver": {
+                "energy_weight": 1.0,
+                "forces_weight": 1000.0,
+                "l2_penalty": 1e-07,
+                "dtype": "torch.float64"
+            }
+        }
+    },
+    {
+        "checkpoint": {
+            "hash": "33c17a889fe004f55d3d5d117e8afa1e",
+            "rf_weight_id": 29
+        },
+        "timings": {
+            "cov_coeffs": 8.915375940996455,
+            "solve": 0.004702539008576423
+        },
+        "metrics": {
+            "validation": {
+                "energy_MAE": 22.429345342680936,
+                "energy_RMSE": 22.509863606210626,
+                "forces_MAE": 30.520004908243816,
+                "forces_MAE_species_1": 9.081908973315969,
+                "forces_MAE_species_6": 57.0637887964646,
+                "forces_MAE_species_7": 68.69116715259021,
+                "forces_MAE_species_8": 46.251457184553146,
+                "forces_RMSE": 48.51869568485225,
+                "forces_RMSE_species_1": 10.901096553106633,
+                "forces_RMSE_species_6": 76.30305858701634,
+                "forces_RMSE_species_7": 78.00425861827165,
+                "forces_RMSE_species_8": 51.15589716780197,
+                "forces_cosim": 0.9768657485644022
+            }
+        },
+        "hyperparameters": {
+            "franken": {
+                "path_or_id": "mace_mp/small",
+                "family": "mace",
+                "interaction_block": 2
+            },
+            "random_features": {
+                "rf_type": "multiscale-gaussian",
+                "num_random_features": 2048,
+                "length_scale_low": 4,
+                "length_scale_high": 20,
+                "length_scale_num": 6,
+                "use_offset": true,
+                "rng_seed": 1337
+            },
+            "input_scaler": {
+                "scale_by_Z": true
+            },
+            "solver": {
+                "energy_weight": 1.0,
+                "forces_weight": 1000.0,
+                "l2_penalty": 1e-06,
+                "dtype": "torch.float64"
+            }
+        }
+    },
+    {
+        "checkpoint": {
+            "hash": "33c17a889fe004f55d3d5d117e8afa1e",
+            "rf_weight_id": 30
+        },
+        "timings": {
+            "cov_coeffs": 8.915375940996455,
+            "solve": 0.005968255005427636
+        },
+        "metrics": {
+            "validation": {
+                "energy_MAE": 26.057067288396258,
+                "energy_RMSE": 26.126407002381114,
+                "forces_MAE": 19.489360491434734,
+                "forces_MAE_species_1": 5.054850749169978,
+                "forces_MAE_species_6": 35.89709219522774,
+                "forces_MAE_species_7": 32.31250784463353,
+                "forces_MAE_species_8": 53.059641271829605,
+                "forces_RMSE": 31.800843590828084,
+                "forces_RMSE_species_1": 6.096343906224398,
+                "forces_RMSE_species_6": 48.8696241990898,
+                "forces_RMSE_species_7": 37.36338436572007,
+                "forces_RMSE_species_8": 57.651258823222605,
+                "forces_cosim": 0.0
+            }
+        },
+        "hyperparameters": {
+            "franken": {
+                "path_or_id": "mace_mp/small",
+                "family": "mace",
+                "interaction_block": 2
+            },
+            "random_features": {
+                "rf_type": "multiscale-gaussian",
+                "num_random_features": 2048,
+                "length_scale_low": 4,
+                "length_scale_high": 20,
+                "length_scale_num": 6,
+                "use_offset": true,
+                "rng_seed": 1337
+            },
+            "input_scaler": {
+                "scale_by_Z": true
+            },
+            "solver": {
+                "energy_weight": 1.0,
+                "forces_weight": 10000.0,
+                "l2_penalty": 1e-11,
+                "dtype": "torch.float64"
+            }
+        }
+    },
+    {
+        "checkpoint": {
+            "hash": "33c17a889fe004f55d3d5d117e8afa1e",
+            "rf_weight_id": 31
+        },
+        "timings": {
+            "cov_coeffs": 8.915375940996455,
+            "solve": 0.0044475619943114
+        },
+        "metrics": {
+            "validation": {
+                "energy_MAE": 18.097678056870212,
+                "energy_RMSE": 18.197371543151863,
+                "forces_MAE": 21.19287872314453,
+                "forces_MAE_species_1": 6.197414486310803,
+                "forces_MAE_species_6": 39.77177192767461,
+                "forces_MAE_species_7": 44.05168775055143,
+                "forces_MAE_species_8": 37.927936452130474,
+                "forces_RMSE": 33.860467170121396,
+                "forces_RMSE_species_1": 7.244306045756274,
+                "forces_RMSE_species_6": 54.13650808596181,
+                "forces_RMSE_species_7": 49.469458391993435,
+                "forces_RMSE_species_8": 42.96795334492893,
+                "forces_cosim": 0.9888950188954672
+            }
+        },
+        "hyperparameters": {
+            "franken": {
+                "path_or_id": "mace_mp/small",
+                "family": "mace",
+                "interaction_block": 2
+            },
+            "random_features": {
+                "rf_type": "multiscale-gaussian",
+                "num_random_features": 2048,
+                "length_scale_low": 4,
+                "length_scale_high": 20,
+                "length_scale_num": 6,
+                "use_offset": true,
+                "rng_seed": 1337
+            },
+            "input_scaler": {
+                "scale_by_Z": true
+            },
+            "solver": {
+                "energy_weight": 1.0,
+                "forces_weight": 10000.0,
+                "l2_penalty": 1e-10,
+                "dtype": "torch.float64"
+            }
+        }
+    },
+    {
+        "checkpoint": {
+            "hash": "33c17a889fe004f55d3d5d117e8afa1e",
+            "rf_weight_id": 32
+        },
+        "timings": {
+            "cov_coeffs": 8.915375940996455,
+            "solve": 0.004707788000814617
+        },
+        "metrics": {
+            "validation": {
+                "energy_MAE": 18.576670100351887,
+                "energy_RMSE": 18.67381157236973,
+                "forces_MAE": 22.53148587544759,
+                "forces_MAE_species_1": 6.937204621350154,
+                "forces_MAE_species_6": 41.633899603039026,
+                "forces_MAE_species_7": 47.4541112780571,
+                "forces_MAE_species_8": 38.754334362844624,
+                "forces_RMSE": 35.54340965065521,
+                "forces_RMSE_species_1": 8.121830772265001,
+                "forces_RMSE_species_6": 56.42717682967966,
+                "forces_RMSE_species_7": 53.2645355802915,
+                "forces_RMSE_species_8": 43.403253560968494,
+                "forces_cosim": 0.9873836437861124
+            }
+        },
+        "hyperparameters": {
+            "franken": {
+                "path_or_id": "mace_mp/small",
+                "family": "mace",
+                "interaction_block": 2
+            },
+            "random_features": {
+                "rf_type": "multiscale-gaussian",
+                "num_random_features": 2048,
+                "length_scale_low": 4,
+                "length_scale_high": 20,
+                "length_scale_num": 6,
+                "use_offset": true,
+                "rng_seed": 1337
+            },
+            "input_scaler": {
+                "scale_by_Z": true
+            },
+            "solver": {
+                "energy_weight": 1.0,
+                "forces_weight": 10000.0,
+                "l2_penalty": 1e-09,
+                "dtype": "torch.float64"
+            }
+        }
+    },
+    {
+        "checkpoint": {
+            "hash": "33c17a889fe004f55d3d5d117e8afa1e",
+            "rf_weight_id": 33
+        },
+        "timings": {
+            "cov_coeffs": 8.915375940996455,
+            "solve": 0.004705471990746446
+        },
+        "metrics": {
+            "validation": {
+                "energy_MAE": 19.192511439673513,
+                "energy_RMSE": 19.286548576665226,
+                "forces_MAE": 24.689541498819988,
+                "forces_MAE_species_1": 8.013178958581427,
+                "forces_MAE_species_6": 45.308739164223276,
+                "forces_MAE_species_7": 51.93303070134587,
+                "forces_MAE_species_8": 40.672676637768745,
+                "forces_RMSE": 38.57800811150138,
+                "forces_RMSE_species_1": 9.45189600391331,
+                "forces_RMSE_species_6": 61.2246220794865,
+                "forces_RMSE_species_7": 58.26282165341094,
+                "forces_RMSE_species_8": 45.512095130972725,
+                "forces_cosim": 0.9857212702433268
+            }
+        },
+        "hyperparameters": {
+            "franken": {
+                "path_or_id": "mace_mp/small",
+                "family": "mace",
+                "interaction_block": 2
+            },
+            "random_features": {
+                "rf_type": "multiscale-gaussian",
+                "num_random_features": 2048,
+                "length_scale_low": 4,
+                "length_scale_high": 20,
+                "length_scale_num": 6,
+                "use_offset": true,
+                "rng_seed": 1337
+            },
+            "input_scaler": {
+                "scale_by_Z": true
+            },
+            "solver": {
+                "energy_weight": 1.0,
+                "forces_weight": 10000.0,
+                "l2_penalty": 1e-08,
+                "dtype": "torch.float64"
+            }
+        }
+    },
+    {
+        "checkpoint": {
+            "hash": "33c17a889fe004f55d3d5d117e8afa1e",
+            "rf_weight_id": 34
+        },
+        "timings": {
+            "cov_coeffs": 8.915375940996455,
+            "solve": 0.004712191002909094
+        },
+        "metrics": {
+            "validation": {
+                "energy_MAE": 20.42039668051892,
+                "energy_RMSE": 20.508803835793664,
+                "forces_MAE": 27.69588343302409,
+                "forces_MAE_species_1": 8.834695139040168,
+                "forces_MAE_species_6": 51.15061902130644,
+                "forces_MAE_species_7": 59.28763374686241,
+                "forces_MAE_species_8": 44.269154158731304,
+                "forces_RMSE": 43.39175107414185,
+                "forces_RMSE_species_1": 10.483372249905756,
+                "forces_RMSE_species_6": 68.68697012368746,
+                "forces_RMSE_species_7": 66.86265581234946,
+                "forces_RMSE_species_8": 49.372843554630045,
+                "forces_cosim": 0.983049194018046
+            }
+        },
+        "hyperparameters": {
+            "franken": {
+                "path_or_id": "mace_mp/small",
+                "family": "mace",
+                "interaction_block": 2
+            },
+            "random_features": {
+                "rf_type": "multiscale-gaussian",
+                "num_random_features": 2048,
+                "length_scale_low": 4,
+                "length_scale_high": 20,
+                "length_scale_num": 6,
+                "use_offset": true,
+                "rng_seed": 1337
+            },
+            "input_scaler": {
+                "scale_by_Z": true
+            },
+            "solver": {
+                "energy_weight": 1.0,
+                "forces_weight": 10000.0,
+                "l2_penalty": 1e-07,
+                "dtype": "torch.float64"
+            }
+        }
+    },
+    {
+        "checkpoint": {
+            "hash": "33c17a889fe004f55d3d5d117e8afa1e",
+            "rf_weight_id": 35
+        },
+        "timings": {
+            "cov_coeffs": 8.915375940996455,
+            "solve": 0.00470260001020506
+        },
+        "metrics": {
+            "validation": {
+                "energy_MAE": 21.27846354359581,
+                "energy_RMSE": 21.36331992555686,
+                "forces_MAE": 30.523757934570312,
+                "forces_MAE_species_1": 9.08844556229619,
+                "forces_MAE_species_6": 57.05110247557362,
+                "forces_MAE_species_7": 68.70657495326465,
+                "forces_MAE_species_8": 46.260702734192215,
+                "forces_RMSE": 48.519720213992784,
+                "forces_RMSE_species_1": 10.90623454968905,
+                "forces_RMSE_species_6": 76.29302629712043,
+                "forces_RMSE_species_7": 78.01775790541984,
+                "forces_RMSE_species_8": 51.166468774096494,
+                "forces_cosim": 0.9768611391385397
+            }
+        },
+        "hyperparameters": {
+            "franken": {
+                "path_or_id": "mace_mp/small",
+                "family": "mace",
+                "interaction_block": 2
+            },
+            "random_features": {
+                "rf_type": "multiscale-gaussian",
+                "num_random_features": 2048,
+                "length_scale_low": 4,
+                "length_scale_high": 20,
+                "length_scale_num": 6,
+                "use_offset": true,
+                "rng_seed": 1337
+            },
+            "input_scaler": {
+                "scale_by_Z": true
+            },
+            "solver": {
+                "energy_weight": 1.0,
+                "forces_weight": 10000.0,
+                "l2_penalty": 1e-06,
+                "dtype": "torch.float64"
+            }
+        }
+    }
+]

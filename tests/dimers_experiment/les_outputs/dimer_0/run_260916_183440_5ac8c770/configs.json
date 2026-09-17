@@ -1,0 +1,69 @@
+{
+    "dataset": {
+        "name": "dimer_les_0",
+        "train_path": "dimer_0_dataset/train.xyz",
+        "test_path": null,
+        "val_path": "dimer_0_dataset/test.xyz",
+        "max_train_samples": null
+    },
+    "solver": {
+        "l2_penalty": 1e-10,
+        "energy_weight": 1.0,
+        "force_weight": 0.1,
+        "stress_weight": {
+            "value": null,
+            "values": null,
+            "start": -2,
+            "stop": 4,
+            "num": 10,
+            "scale": "log"
+        }
+    },
+    "backbone": {
+        "path_or_id": "mace_mp/small",
+        "family": "mace",
+        "interaction_block": 2
+    },
+    "rfs": {
+        "rf_type": "multiscale-gaussian",
+        "num_random_features": 2048,
+        "length_scale_low": 4,
+        "length_scale_high": 20,
+        "length_scale_num": 6,
+        "use_offset": true,
+        "rng_seed": 1337
+    },
+    "les": {
+        "n_layers": 3,
+        "hidden_dim": [
+            64,
+            32
+        ],
+        "dl": 3,
+        "sigma": 1.0,
+        "les_output_scale": 0.1,
+        "add_linear_nn": true
+    },
+    "rf_normalization": "leading_eig",
+    "save_every_model": false,
+    "dtype": "float64",
+    "save_fmaps": false,
+    "best_model_selection": [],
+    "metrics": null,
+    "scale_by_species": true,
+    "jac_chunk_size": "auto",
+    "run_dir": "./les_outputs/dimer_0/",
+    "seed": 1337,
+    "console_logging_level": "INFO",
+    "eval_splits": [
+        "val"
+    ],
+    "atomic_energies": null,
+    "train_targets": [
+        "energy",
+        "forces"
+    ],
+    "num_gpus": 1,
+    "gpu_model": "Tesla V100-SXM2-32GB",
+    "cpu_model": " Intel(R) Xeon(R) Gold 6240 CPU @ 2.60GHz"
+}
