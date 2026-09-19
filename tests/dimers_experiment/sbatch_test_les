@@ -1,0 +1,26 @@
+#!/bin/bash
+#SBATCH --nodes=1              # Number of nodes
+#SBATCH --ntasks-per-node=1    # Number of MPI ranks per node
+#SBATCH --gres=gpu:1          # Number of requested gpus per node, can vary between 1 and 41
+#SBATCH --ntasks=1
+#SBATCH --gpus-per-node=1
+#SBATCH --cpus-per-task=20 
+#SBATCH --time 01:10:00        # Walltime, format: HH:MM:SS
+#SBATCH --partition=gpuv
+##SBATCH --exclusive
+#SBATCH --job-name='FRLES'
+
+module load intel/gcc-11.4.1/miniforge3-24.11.3-2
+module load amd/nvidia/cuda-12.8.0
+#source ~/.bashrc
+#conda deactivate
+conda init
+source ~/.bashrc
+conda activate /work/mibianchi/envs/franken_les_v2
+
+echo $CUDA_VISIBLE_DEVICES
+echo $SLURM_GPUS_ON_NODE
+export CUDA_VISIBLE_DEVICES=$CUDA_VISIBLE_DEVICES
+
+python main.py
+#python comparison_inference.py
