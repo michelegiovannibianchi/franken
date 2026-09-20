@@ -1,0 +1,67 @@
+{
+    "checkpoint": {
+        "hash": "90a5fa056dc295d53c4504189ebe477c",
+        "rf_weight_id": 0
+    },
+    "timings": {
+        "cov_coeffs": 0,
+        "solve": 0
+    },
+    "metrics": {
+        "validation": {
+            "energy_MAE": 12.254517604231006,
+            "energy_RMSE": 12.400663864075726,
+            "forces_MAE": 24.368445714314777,
+            "forces_MAE_species_1": 8.742545361224657,
+            "forces_MAE_species_6": 44.22379232322176,
+            "forces_MAE_species_7": 45.70376397007041,
+            "forces_MAE_species_8": 44.29544694721699,
+            "forces_RMSE": 38.38364235821203,
+            "forces_RMSE_species_1": 10.64037373704235,
+            "forces_RMSE_species_6": 62.83704840864665,
+            "forces_RMSE_species_7": 52.31519865838734,
+            "forces_RMSE_species_8": 47.22843276633514,
+            "forces_cosim": 0.9815173546473185
+        }
+    },
+    "hyperparameters": {
+        "franken": {
+            "path_or_id": "mace_mp/small",
+            "family": "mace",
+            "interaction_block": 2
+        },
+        "random_features": {
+            "rf_type": "multiscale-gaussian",
+            "num_random_features": 2048,
+            "length_scale_low": 4,
+            "length_scale_high": 20,
+            "length_scale_num": 6,
+            "use_offset": true,
+            "rng_seed": 1337
+        },
+        "input_scaler": {
+            "scale_by_Z": true
+        },
+        "les": {
+            "n_layers": 3,
+            "hidden_dim": [
+                64,
+                32
+            ],
+            "dl": 3,
+            "sigma": 1.0,
+            "les_output_scale": 1.0,
+            "add_linear_nn": false
+        },
+        "solver": {
+            "energy_weight": 1.0,
+            "forces_weight": 0.1,
+            "l2_penalty": 1e-10,
+            "dtype": "torch.float64",
+            "les_lr": 0.0001,
+            "les_optim": "adam",
+            "num_outer": 10,
+            "num_inner": 200
+        }
+    }
+}

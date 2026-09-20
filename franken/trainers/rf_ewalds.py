@@ -242,6 +242,9 @@ class RandomFeaturesEwaldsTrainer(RandomFeaturesTrainer):
                 inner_data = iter(self.train_dataloader)
                 data, targets = next(inner_data)
 
+            data = data.to(device=self.device)
+            targets = targets.to(device=self.device)
+
             # 1. compute predictions of the joint model
             preds = model.predict(
                 targets=self.training_targets,  # type: ignore
@@ -275,7 +278,7 @@ class RandomFeaturesEwaldsTrainer(RandomFeaturesTrainer):
                 [f"{k}={np.mean(v):.2e}" for k, v in avg_losses.items()]
             )
             pb.set_description(loss_str)
-
+        
         # Evaluate on training and validation data
         self._print_eval(
             rf_hps, model, weights=None, epoch=epoch, after_what="LES training"
@@ -492,6 +495,7 @@ class RandomFeaturesEwaldsTrainer(RandomFeaturesTrainer):
         for i, (data, targets) in enumerate(progress_bar):
             assert isinstance(data, Configuration)
             data = data.to(device=self.device)
+            targets = targets.to(device=self.device)
             assert data.natoms.numel() == 1, "Batched training is not supported"
 
             target_fmaps = model.grad_feature_map(data, self.training_targets)
@@ -502,6 +506,7 @@ class RandomFeaturesEwaldsTrainer(RandomFeaturesTrainer):
                     raise RuntimeError(
                         f"Target {i} does not contain any values for {tgt_name}."
                     )
+
                 tgt_per_atom = (tgt / data.natoms).to(dtype=self.buffer_dt)
                 fmap = target_fmaps[tgt_name].to(self.buffer_dt)
                 if is_scalar_target(tgt_name):
