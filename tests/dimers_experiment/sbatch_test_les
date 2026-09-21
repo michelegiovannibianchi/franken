@@ -4,9 +4,9 @@
 #SBATCH --gres=gpu:1          # Number of requested gpus per node, can vary between 1 and 41
 #SBATCH --ntasks=1
 #SBATCH --gpus-per-node=1
-#SBATCH --cpus-per-task=20 
+#SBATCH --cpus-per-task=8 
 #SBATCH --time 00:10:00        # Walltime, format: HH:MM:SS
-#SBATCH --partition=gpuv
+#SBATCH --partition=debug
 ##SBATCH --exclusive
 #SBATCH --job-name='FRLES'
 
@@ -22,5 +22,5 @@ echo $CUDA_VISIBLE_DEVICES
 echo $SLURM_GPUS_ON_NODE
 export CUDA_VISIBLE_DEVICES=$CUDA_VISIBLE_DEVICES
 
-python main.py
-#python comparison_inference.py
+#python main.py
+python comparison_inference.py
