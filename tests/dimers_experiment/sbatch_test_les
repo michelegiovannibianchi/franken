@@ -5,7 +5,7 @@
 #SBATCH --ntasks=1
 #SBATCH --gpus-per-node=1
 #SBATCH --cpus-per-task=20 
-#SBATCH --time 01:10:00        # Walltime, format: HH:MM:SS
+#SBATCH --time 00:10:00        # Walltime, format: HH:MM:SS
 #SBATCH --partition=gpuv
 ##SBATCH --exclusive
 #SBATCH --job-name='FRLES'

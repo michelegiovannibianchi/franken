@@ -9,9 +9,11 @@ from franken.data import FrankenAtomsDataset, Configuration
 from franken.data.base import (
     ENERGY_TARGET_KEY,
     FORCES_TARGET_KEY,
+    LES_CHARGES_TARGET_KEY,
     STRESS_TARGET_KEY,
 )
 from franken.rf.model import FrankenPotential
+from franken.rf.les_model import LESFrankenPotential                                                    
 from franken.utils.misc import get_device_name
 
 
@@ -20,16 +22,17 @@ class FrankenCalculator(Calculator):
 
     Attributes:
         implemented_properties:
-            Lists properties which can be asked from this calculator, notably "energy", "forces", "stress".
+            Lists properties which can be asked from this calculator, notably "energy", "forces", "LES_charges", "stress".
     """
 
-    implemented_properties = ["energy", "forces", "stress"]
+    implemented_properties = ["energy", "forces", "LES_charges", "stress"]
     default_parameters = {}
     nolabel = True  # ??
 
     def __init__(
         self,
-        franken_ckpt: Union[FrankenPotential, str, Path],
+        franken_ckpt: Union[torch.nn.Module, str, Path],
+        model_class=FrankenPotential,                             
         device=None,
         rf_weight_id: int | None = None,
         gnn_config: BackboneConfig | None = None,
@@ -50,7 +53,7 @@ class FrankenCalculator(Calculator):
                 In those cases passing the correct `gnn_config` is needed.
         """
         super().__init__(**calc_kwargs)
-        self.franken: FrankenPotential
+        self.franken: torch.nn.Module
         if isinstance(franken_ckpt, torch.nn.Module):
             self.franken = franken_ckpt
             if device is not None:
@@ -62,7 +65,7 @@ class FrankenCalculator(Calculator):
             except RuntimeError as e:
                 if "PytorchStreamReader" not in str(e):
                     raise
-                self.franken = FrankenPotential.load(  # type: ignore
+                self.franken = model_class.load(  # type: ignore
                     franken_ckpt,
                     map_location=device,
                     rf_weight_id=rf_weight_id,
@@ -107,6 +110,8 @@ class FrankenCalculator(Calculator):
         targets = [ENERGY_TARGET_KEY]
         if "forces" in properties:
             targets.append(FORCES_TARGET_KEY)
+        if "LES_charges" in properties:
+            targets.append(LES_CHARGES_TARGET_KEY)
         if "stress" in properties:
             targets.append(STRESS_TARGET_KEY)
         computed = self.franken(targets, data)
@@ -117,6 +122,10 @@ class FrankenCalculator(Calculator):
         if "forces" in properties:
             self.results["forces"] = (
                 computed[FORCES_TARGET_KEY].squeeze(0).numpy(force=True)
+            )
+        if "LES_charges" in properties:
+            self.results["LES_charges"] = (
+                computed[LES_CHARGES_TARGET_KEY].squeeze(0).numpy(force=True)
             )
         if "stress" in properties:
             self.results["stress"] = (
