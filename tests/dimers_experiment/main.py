@@ -187,8 +187,6 @@ def test_franken(
         name=f"dimer_{dset.id}", train_path=train_path
     )
     model = model_cls.load(model_path)
-    print(type(model))
-    print(model.__class__)
     model.eval()
     frk_dset = FrankenAtomsDataset(
         data_path=train_path,

@@ -35,9 +35,11 @@ class LESFrankenPotential(FrankenPotential):
             num_species=num_species,
             atomic_energies=atomic_energies,
         )
+
         self.les_config = les_config
         self.les = initialize_les(
-            les_config=les_config, feature_dim=self.gnn.feature_dim()
+            les_config=les_config,
+            feature_dim=self.gnn.feature_dim(),
         )
 
     @property
@@ -47,7 +49,11 @@ class LESFrankenPotential(FrankenPotential):
         hps["les"] = self.les_config.to_ckpt()
         return hps
 
-    def save(self, path: os.PathLike | str, multi_weights: torch.Tensor | None = None):
+    def save(
+        self,
+        path: os.PathLike | str,
+        multi_weights: torch.Tensor | None = None,
+    ):
         # TODO: We probably want to drop multi-weight support for LES model
         if multi_weights is not None:
             assert torch.is_tensor(multi_weights)
@@ -75,6 +81,7 @@ class LESFrankenPotential(FrankenPotential):
                 "state_dict": self.les.state_dict(),
             },
         }
+
         torch.save(ckpt, path)
 
     @classmethod
@@ -85,16 +92,24 @@ class LESFrankenPotential(FrankenPotential):
         rf_weight_id: int | None = None,
         backbone_path_or_id: str | None = None,
     ):
-        ckpt = torch.load(path, map_location=map_location, weights_only=False)
+        ckpt = torch.load(
+            path,
+            map_location=map_location,
+            weights_only=False,
+        )
 
         rf_cfg = RFConfig.from_ckpt(ckpt["rf"]["config"])
         gnn_cfg = BackboneConfig.from_ckpt(ckpt["gnn"]["config"])
         les_cfg = LESConfig.from_ckpt(ckpt["les"]["config"])
+
         if backbone_path_or_id is not None:
             logger.warning(
-                f"The backbone path/id changed from {gnn_cfg.path_or_id} to {backbone_path_or_id}. If this refers to a different backbone, unexpected results may occur."
+                f"The backbone path/id changed from {gnn_cfg.path_or_id} "
+                f"to {backbone_path_or_id}. If this refers to a different "
+                f"backbone, unexpected results may occur."
             )
             gnn_cfg.path_or_id = backbone_path_or_id
+
         model = cls(
             gnn_config=gnn_cfg,
             rf_config=rf_cfg,
@@ -103,27 +118,39 @@ class LESFrankenPotential(FrankenPotential):
             num_species=ckpt["num_species"],
             **ckpt["input_scaler"]["config"],
         )
-        model.rf.load_state_dict(ckpt["rf"]["state_dict"])
-        model.input_scaler.load_state_dict(ckpt["input_scaler"]["state_dict"])
-        model.energy_shift.load_state_dict(ckpt["energy_shift"])
-        model.les.load_state_dict(ckpt["les"]["state_dict"])
 
-        if (
-            ckpt["multi_weights"] is not None
-        ):  # TODO: We probably want to drop multi-weight support for LES model
+        model.rf.load_state_dict(ckpt["rf"]["state_dict"])
+        model.input_scaler.load_state_dict(
+            ckpt["input_scaler"]["state_dict"]
+        )
+        model.energy_shift.load_state_dict(
+            ckpt["energy_shift"]
+        )
+        model.les.load_state_dict(
+            ckpt["les"]["state_dict"]
+        )
+
+        if ckpt["multi_weights"] is not None:
+            # TODO: We probably want to drop multi-weight support for LES model
             if rf_weight_id is None:
                 raise ValueError(
-                    f"The checkpoint contains {ckpt['multi_weights'].shape[0]}, select which one to load by specifying rf_weight_id"
+                    f"The checkpoint contains "
+                    f"{ckpt['multi_weights'].shape[0]}, "
+                    f"select which one to load by specifying rf_weight_id"
                 )
+
             assert rf_weight_id < ckpt["multi_weights"].shape[0]
+
             model.rf.weights.copy_(
-                ckpt["multi_weights"][rf_weight_id].reshape_as(model.rf.weights)
+                ckpt["multi_weights"][rf_weight_id].reshape_as(
+                    model.rf.weights
+                )
             )
 
         if map_location is not None:
             return model.to(map_location)
-        else:
-            return model
+
+        return model
 
     def _energy_aux(
         self,
@@ -132,19 +159,42 @@ class LESFrankenPotential(FrankenPotential):
         data: Configuration,
         weights: torch.Tensor | None,
     ):
-        # weights: [num weights(M), num features(F)]
+        # weights: [num_weights, num_features]
+
         if weights is None:
             weights = self.rf.weights
-        gnn_descriptors = self.descriptors(atom_pos, displacement, data)
-        random_features = self.rfs_from_descriptor(gnn_descriptors, data)
-        random_features = random_features.to(dtype=weights.dtype)  # [N, F]
 
-        natoms = data.natoms.to(dtype=weights.dtype).view(-1)  # [N]
-        rff_energies = torch.matmul(random_features, weights.T).T  # [M, N]
+        gnn_descriptors = self.descriptors(
+            atom_pos,
+            displacement,
+            data,
+        )
+
+        random_features = self.rfs_from_descriptor(
+            gnn_descriptors,
+            data,
+        )
+        random_features = random_features.to(dtype=weights.dtype)
+
+        natoms = data.natoms.to(dtype=weights.dtype).view(-1)
+
+        rff_energies = torch.matmul(
+            random_features,
+            weights.T,
+        ).T
+
         rff_energies = natoms[None, :] * rff_energies
-        les_energies = self.les(gnn_descriptors, atom_pos, data)
+
+        les_energies, les_charges = self.les(
+            gnn_descriptors,
+            atom_pos,
+            data,
+        )
+
         energies = rff_energies + les_energies
 
+        # First output is used for differentiation,
+        # second output retains per-structure energies.
         return energies.sum(1), energies
 
     def _les_energy_aux(
@@ -153,9 +203,39 @@ class LESFrankenPotential(FrankenPotential):
         displacement: torch.Tensor | None,
         data: Configuration,
     ):
-        gnn_descriptors = self.descriptors(atom_pos, displacement, data)
-        les_energies = self.les(gnn_descriptors, atom_pos, data)
+        gnn_descriptors = self.descriptors(
+            atom_pos,
+            displacement,
+            data,
+        )
+
+        les_energies, les_charges = self.les(
+            gnn_descriptors,
+            atom_pos,
+            data,
+        )
+
         return les_energies, les_energies
+
+    def _les_charges_aux(
+        self,
+        atom_pos: torch.Tensor,
+        displacement: torch.Tensor | None,
+        data: Configuration,
+    ):
+        gnn_descriptors = self.descriptors(
+            atom_pos,
+            displacement,
+            data,
+        )
+
+        _, les_charges = self.les(
+            gnn_descriptors,
+            atom_pos,
+            data,
+        )
+
+        return les_charges
 
     def _predict(  # pyright: ignore[reportIncompatibleMethodOverride]
         self,
@@ -166,19 +246,70 @@ class LESFrankenPotential(FrankenPotential):
     ) -> dict[str, torch.Tensor]:
         if weights is None:
             weights = self.rf.weights
-        compute_force = franken.data.base.FORCES_TARGET_KEY in targets
-        compute_stress = franken.data.base.STRESS_TARGET_KEY in targets
+
+        compute_force = (
+            franken.data.base.FORCES_TARGET_KEY in targets
+        )
+        compute_stress = (
+            franken.data.base.STRESS_TARGET_KEY in targets
+        )
+        compute_LES_charges = (
+            franken.data.base.LES_CHARGES_TARGET_KEY in targets
+        )
+
+        computed = {}
+
         if compute_stress:
-            return forces_stress_bwdad(
-                data, fn=self._energy_aux, is_training=is_training, weights=weights
+            computed = forces_stress_bwdad(
+                data,
+                fn=self._energy_aux,
+                is_training=is_training,
+                weights=weights,
             )
+
         elif compute_force:
-            return forces_bwdad(
-                data, fn=self._energy_aux, is_training=is_training, weights=weights
+            computed = forces_bwdad(
+                data,
+                fn=self._energy_aux,
+                is_training=is_training,
+                weights=weights,
             )
+
         else:
-            _, energy = self._energy_aux(data.atom_pos, None, data, weights)  # [M, N]
-            return {franken.data.base.ENERGY_TARGET_KEY: energy}
+            _, energy = self._energy_aux(
+                data.atom_pos,
+                None,
+                data,
+                weights,
+            )
+
+            computed = {
+                franken.data.base.ENERGY_TARGET_KEY: energy
+            }
+
+        if compute_LES_charges:
+            computed[franken.data.base.LES_CHARGES_TARGET_KEY] = (
+                self._les_charges_aux(
+                    data.atom_pos,
+                    None,
+                    data,
+                )
+            )
+
+            # Convert the normalized LES charges into physical units.
+            epsilon_0 = 0.00552635  # e^2 eV^-1 A^-1
+            q_normalisation_factor = (2 * epsilon_0) ** 0.5
+
+            computed[
+                franken.data.base.LES_CHARGES_TARGET_KEY
+            ] = (
+                computed[
+                    franken.data.base.LES_CHARGES_TARGET_KEY
+                ]
+                * q_normalisation_factor
+            )
+
+        return computed
 
     def predict_les(
         self,
@@ -186,17 +317,37 @@ class LESFrankenPotential(FrankenPotential):
         targets: list[str],
         is_training: bool = False,
     ) -> dict[str, torch.Tensor]:
-        compute_force = franken.data.base.FORCES_TARGET_KEY in targets
-        compute_stress = franken.data.base.STRESS_TARGET_KEY in targets
+        compute_force = (
+            franken.data.base.FORCES_TARGET_KEY in targets
+        )
+        compute_stress = (
+            franken.data.base.STRESS_TARGET_KEY in targets
+        )
+
         if compute_stress:
             return forces_stress_bwdad(
-                data, fn=self._les_energy_aux, is_training=is_training
+                data,
+                fn=self._les_energy_aux,
+                is_training=is_training,
             )
+
         elif compute_force:
-            return forces_bwdad(data, fn=self._les_energy_aux, is_training=is_training)
+            return forces_bwdad(
+                data,
+                fn=self._les_energy_aux,
+                is_training=is_training,
+            )
+
         else:
-            _, energy = self._les_energy_aux(data.atom_pos, None, data)  # [M, N]
-            return {franken.data.base.ENERGY_TARGET_KEY: energy}
+            _, energy = self._les_energy_aux(
+                data.atom_pos,
+                None,
+                data,
+            )
+
+            return {
+                franken.data.base.ENERGY_TARGET_KEY: energy
+            }
 
     def predict(
         self,
@@ -232,17 +383,28 @@ class LESFrankenPotential(FrankenPotential):
             Use `"torch.autograd"` if the model has been processed by :code:`torch.jit.script`.
         """
         natoms = torch.atleast_1d(data.natoms)
-        out = self._predict(weights, data, targets, is_training=is_training)
 
-        if add_energy_shift and franken.data.base.ENERGY_TARGET_KEY in targets:
-            out[franken.data.base.ENERGY_TARGET_KEY] = out[
-                franken.data.base.ENERGY_TARGET_KEY
-            ] + self.energy_shift(
-                data.atomic_numbers,
-                batch_ids=data.batch_ids,
-                num_systems=int(natoms.numel()),
+        out = self._predict(
+            weights,
+            data,
+            targets,
+            is_training=is_training,
+        )
+
+        if (
+            add_energy_shift
+            and franken.data.base.ENERGY_TARGET_KEY in targets
+        ):
+            out[franken.data.base.ENERGY_TARGET_KEY] = (
+                out[franken.data.base.ENERGY_TARGET_KEY]
+                + self.energy_shift(
+                    data.atomic_numbers,
+                    batch_ids=data.batch_ids,
+                    num_systems=int(natoms.numel()),
+                )
             )
-        return out  # ([M, N], [M, A, 3])
+
+        return out
 
     def forward(
         self,
@@ -257,13 +419,18 @@ class LESFrankenPotential(FrankenPotential):
         This function defaults to using the 'torch.autograd' strategy which allows the model
         to be jit-compiled.
         """
+
         out = self.predict(
             targets=targets,
             data=data,
             weights=weights,
             differential_mode=(
-                "torch.autograd" if not self.force_func_grad else "torch.func"
+                "torch.autograd"
+                if not self.force_func_grad
+                else "torch.func"
             ),
             add_energy_shift=add_energy_shift,
         )
+
+        # Remove model dimension when a single model is present.
         return {k: v.squeeze(0) for k, v in out.items()}
